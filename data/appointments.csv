@@ -1,0 +1,7 @@
+id,patient_name,patient_email,clinic_id,clinic_name,clinic_address,doctor_id,doctor_name,specialty,symptom,date,slot,status,created_at
+A001,Nguyễn Văn An,an@gmail.com,1,,,1,,Tim mạch,Đau ngực,2025-07-01,09:00,confirmed,
+A002,Trần Thị Bình,binh@gmail.com,1,,,2,,Nội tiêu hóa,Đau bụng - buồn nôn,2025-07-01,10:30,confirmed,
+A003,Lê Minh Cường,cuong@gmail.com,2,,,5,,Thần kinh,Đau đầu mãn tính,2025-07-02,14:00,confirmed,
+AMQYCTZL7,Trần Văn Qusy,hiyava3@gmail.com,4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,10,BS. Lý Thị Kim,Nhi khoa,Chậm phát triển,2026-06-29,14:30,confirmed,2026-06-28T22:22:35.371Z
+AMQYD3JC7,Tranquy,tranquy190806@gmail.com,4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,10,BS. Lý Thị Kim,Nhi khoa,Trẻ sốt cao,2026-06-30,08:30,confirmed,2026-06-28T22:30:00.871Z
+AMQYD7P81,Tranquy,tranquy190806@gmail.com,1,Phòng khám Đa khoa An Bình,12 Hoàng Diệu - Hà Nội,2,BS. Trần Thị Lan,Nội tiêu hóa,Ợ chua - trào ngược,2026-06-30,10:00,confirmed,2026-06-28T22:33:15.121Z

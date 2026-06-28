@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đặt lịch khám sức khỏe online</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --primary: #1251a3;
+    --primary-hover: #0d3f82;
+    --primary-light: #eff5ff;
+    --primary-mid: #b8d0f9;
+    --teal: #0891b2;
+    --green: #059669;
+    --green-light: #d1fae5;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+    --shadow-md: 0 10px 24px -3px rgba(18,81,163,0.10), 0 4px 8px -2px rgba(0,0,0,0.05);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background: #eef3fb;
+    min-height: 100vh;
+    padding: 28px 16px 48px;
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .container { max-width: 680px; margin: 0 auto; }
+
+  /* HEADER */
+  .app-header {
+    background: linear-gradient(130deg, #1251a3 0%, #1a6fc4 60%, #0891b2 100%);
+    border-radius: var(--radius-xl);
+    padding: 28px 32px;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 8px 24px rgba(18,81,163,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .app-header::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 160px; height: 160px; background: rgba(255,255,255,0.06); border-radius: 50%;
+  }
+  .app-header::after {
+    content: ''; position: absolute; bottom: -50px; right: 80px;
+    width: 200px; height: 200px; background: rgba(255,255,255,0.04); border-radius: 50%;
+  }
+  .header-icon {
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,0.18);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .app-header h1 { font-size: 19px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .app-header p { font-size: 13px; opacity: 0.8; }
+
+  /* PROGRESS */
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-labels { display: flex; gap: 2px; margin-bottom: 10px; }
+  .progress-label {
+    flex: 1; text-align: center; font-size: 10.5px; color: var(--gray-400);
+    font-weight: 600; transition: color .2s;
+  }
+  .progress-label.done { color: var(--green); }
+  .progress-label.active { color: var(--primary); }
+  .progress-bar { display: flex; gap: 4px; height: 4px; }
+  .progress-seg { flex: 1; border-radius: 99px; background: var(--gray-200); transition: background .35s; }
+  .progress-seg.done { background: var(--green); }
+  .progress-seg.active { background: var(--primary); }
+
+  /* CARD */
+  .card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 24px 26px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 14px;
+    border: 1px solid rgba(226,232,240,0.6);
+  }
+  .card-title {
+    font-size: 15px; font-weight: 700; color: var(--gray-800);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 9px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .card-title .icon {
+    width: 34px; height: 34px;
+    background: var(--primary-light);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+
+  /* FORM */
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block; font-size: 12.5px; font-weight: 600;
+    color: var(--gray-600); margin-bottom: 6px;
+  }
+  input[type=text], input[type=email], input[type=date], input[type=password] {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-size: 14px; color: var(--gray-900);
+    font-family: inherit;
+    transition: border-color .15s, box-shadow .15s;
+    background: #fff;
+    outline: none;
+  }
+  input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(18,81,163,0.08); }
+  input:disabled { background: var(--gray-50); color: var(--gray-400); cursor: not-allowed; }
+
+  /* BUTTONS */
+  .btn {
+    padding: 10px 22px; border-radius: var(--radius-sm); font-size: 13.5px;
+    font-weight: 600; cursor: pointer; border: none; transition: all .15s;
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 2px 6px rgba(18,81,163,0.25); }
+  .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+  .btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; box-shadow: none; transform: none; }
+  .btn-outline { background: #fff; color: var(--gray-600); border: 1.5px solid var(--gray-200); }
+  .btn-outline:hover { border-color: var(--gray-300); background: var(--gray-50); }
+  .btn-success { background: var(--green); color: #fff; box-shadow: 0 2px 6px rgba(5,150,105,0.25); }
+  .btn-success:hover { background: #047857; transform: translateY(-1px); }
+  .btn-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--gray-100);
+  }
+
+  /* CHIPS */
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .chip {
+    padding: 7px 15px; border-radius: 999px;
+    border: 1.5px solid var(--gray-200);
+    background: #fff; color: var(--gray-600);
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .15s; font-family: inherit;
+  }
+  .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+  .chip.active { background: var(--primary-light); border-color: var(--primary); color: var(--primary); font-weight: 700; }
+
+  /* CLINIC CARDS */
+  .clinic-item {
+    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+    padding: 14px 16px; cursor: pointer; transition: all .18s;
+    margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .clinic-item:hover { border-color: var(--primary); background: var(--primary-light); }
+  .clinic-item.active { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 0 0 3px rgba(18,81,163,0.08); }
+  .clinic-name { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+  .clinic-address { font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
+  .clinic-specs { font-size: 11.5px; color: var(--gray-400); }
+  .clinic-meta { text-align: right; flex-shrink: 0; padding-left: 14px; }
+  .dist-badge {
+    display: inline-block; background: var(--primary); color: #fff;
+    font-size: 11.5px; font-weight: 700; padding: 3px 10px;
+    border-radius: 999px; margin-bottom: 5px;
+  }
+  .nearest-badge {
+    display: inline-block; background: var(--green-light); color: var(--green);
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px;
+  }
+  .rating { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+
+  /* DOCTOR CARDS */
+  .doctor-item {
+    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+    padding: 13px 15px; cursor: pointer; transition: all .18s;
+    margin-bottom: 8px; display: flex; align-items: center; gap: 13px;
+  }
+  .doctor-item:hover { border-color: var(--primary); background: var(--primary-light); }
+  .doctor-item.active { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 0 0 3px rgba(18,81,163,0.08); }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
+    color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(18,81,163,0.2);
+  }
+  .doctor-name { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+  .doctor-meta { font-size: 12px; color: var(--gray-500); margin-top: 3px; }
+
+  /* TIME SLOTS */
+  .slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+  .slot-btn {
+    padding: 10px 4px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--gray-200); background: #fff;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    text-align: center; transition: all .15s; color: var(--gray-700);
+    font-family: inherit;
+  }
+  .slot-btn:hover:not(.taken) { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+  .slot-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; font-weight: 600; }
+  .slot-btn.taken { background: var(--red-light); color: var(--red); border-color: #fca5a5; cursor: not-allowed; text-decoration: line-through; opacity: .6; }
+  .slot-btn.suggested { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
+  .slot-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--gray-500); margin-bottom: 12px; margin-top: 4px; }
+  .slot-legend span { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* INFO TABLE */
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-bottom: 1px solid var(--gray-100); }
+  .info-table tr:last-child { border-bottom: none; }
+  .info-table td { padding: 10px 0; font-size: 13px; }
+  .info-table td:first-child { color: var(--gray-500); width: 38%; }
+  .info-table td:last-child { font-weight: 600; color: var(--gray-800); text-align: right; }
+
+  /* ALERTS */
+  .alert {
+    padding: 12px 15px; border-radius: var(--radius-sm);
+    font-size: 13px; margin-bottom: 14px;
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+  }
+  .alert-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+  .alert-warning { background: var(--amber-light); color: #92400e; border: 1px solid #fcd34d; }
+  .alert-success { background: var(--green-light); color: #065f46; border: 1px solid #6ee7b7; }
+  .alert-info { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); }
+  .alert-error { background: var(--red-light); color: var(--red); border: 1px solid #fca5a5; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px; font-weight: 700; color: var(--gray-400);
+    text-transform: uppercase; letter-spacing: .08em;
+    margin-bottom: 10px; margin-top: 18px;
+  }
+
+  /* SUCCESS */
+  .success-screen { text-align: center; padding: 8px 0; }
+  .success-icon {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: var(--green-light); color: var(--green); font-size: 36px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+    box-shadow: 0 0 0 10px rgba(5,150,105,0.08);
+  }
+  .success-title { font-size: 22px; font-weight: 800; color: var(--gray-800); margin-bottom: 6px; }
+  .success-subtitle { font-size: 13.5px; color: var(--gray-500); margin-bottom: 22px; }
+  .appt-summary {
+    background: var(--gray-50); border-radius: var(--radius-sm);
+    padding: 16px 18px; text-align: left; margin-bottom: 16px;
+    border: 1px solid var(--gray-100);
+  }
+
+  /* MY APPOINTMENTS */
+  .appt-card {
+    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+    padding: 14px 16px; margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .appt-badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 3px 9px; border-radius: 999px;
+    background: var(--green-light); color: var(--green);
+  }
+
+  /* LOG */
+  .log-panel {
+    background: var(--gray-800); border-radius: var(--radius-sm);
+    padding: 14px 16px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11.5px;
+    color: #6ee7b7; max-height: 130px; overflow-y: auto; margin-top: 14px;
+    border: 1px solid var(--gray-700);
+  }
+  .log-line { margin-bottom: 4px; }
+
+  /* AUTH */
+  .auth-wrap { max-width: 400px; margin: 32px auto; }
+  .auth-logo { text-align: center; margin-bottom: 24px; }
+  .auth-logo-icon {
+    width: 64px; height: 64px; border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; margin: 0 auto 12px;
+    box-shadow: 0 8px 24px rgba(18,81,163,0.25);
+  }
+  .auth-logo h2 { font-size: 17px; font-weight: 800; color: var(--gray-800); }
+  .auth-logo p { font-size: 13px; color: var(--gray-500); margin-top: 3px; }
+  .auth-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--gray-100); padding: 4px; border-radius: var(--radius-sm); }
+  .auth-tab {
+    flex: 1; text-align: center; padding: 9px 0; border-radius: 6px;
+    font-size: 13px; font-weight: 600; cursor: pointer; color: var(--gray-500);
+    border: none; background: transparent; transition: all .15s; font-family: inherit;
+  }
+  .auth-tab.active { background: #fff; color: var(--primary); box-shadow: var(--shadow); }
+  .auth-error {
+    background: var(--red-light); color: var(--red); font-size: 12.5px;
+    padding: 10px 13px; border-radius: var(--radius-sm); margin-bottom: 14px;
+    display: none; border: 1px solid #fca5a5; font-weight: 500;
+  }
+  .auth-error.show { display: block; }
+  .auth-footnote { font-size: 12.5px; color: var(--gray-400); text-align: center; margin-top: 16px; }
+
+  /* USER BAR */
+  .user-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border-radius: var(--radius);
+    padding: 10px 16px;
+    box-shadow: var(--shadow-sm); margin-bottom: 16px;
+    border: 1px solid var(--gray-100);
+  }
+  .user-bar-left { display: flex; align-items: center; gap: 10px; }
+  .user-bar-right { display: flex; align-items: center; gap: 8px; }
+  .user-bar-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
+    color: #fff; font-weight: 700; font-size: 12px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .user-bar-name { font-weight: 600; color: var(--gray-800); font-size: 13px; }
+  .user-bar-email { color: var(--gray-400); font-size: 11.5px; }
+  .btn-icon {
+    background: none; border: none; cursor: pointer; padding: 6px 10px;
+    border-radius: 6px; font-size: 12px; font-weight: 600;
+    color: var(--gray-500); font-family: inherit; transition: all .15s;
+  }
+  .btn-icon:hover { background: var(--gray-100); color: var(--gray-800); }
+  .btn-logout:hover { background: var(--red-light) !important; color: var(--red) !important; }
+
+  /* LOADING */
+  .loading { text-align: center; padding: 40px; color: var(--gray-400); font-size: 14px; }
+  .spinner {
+    width: 28px; height: 28px; border: 3px solid var(--gray-200);
+    border-top-color: var(--primary); border-radius: 50%;
+    animation: spin .7s linear infinite; margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 480px) {
+    .slot-grid { grid-template-columns: repeat(3, 1fr); }
+    .app-header { padding: 20px; gap: 14px; }
+    .card { padding: 18px 16px; }
+    body { padding: 16px 12px 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="app-header">
+    <div class="header-icon">🏥</div>
+    <div>
+      <h1>Đặt lịch khám sức khỏe online</h1>
+      <p>Chọn phòng khám · Bác sĩ · Thời gian · Nhận email xác nhận</p>
+    </div>
+  </div>
+
+  <div id="userBar"></div>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-labels" id="progressLabels"></div>
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div id="appContent"></div>
+</div>
+
+<script>
+// ── EMAILJS ──────────────────────────────────────────────────
+const EMAILJS_CONFIG = {
+  serviceId: "service_wj2e8p1",
+  templateId: "template_u20tyjq",
+  publicKey: "vJsDA36FftetIb3k6",
+};
+if (window.emailjs) emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+
+function sendConfirmationEmail(appt) {
+  if (!window.emailjs) return Promise.reject(new Error("EmailJS chưa tải"));
+  return emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+    to_email: appt.patient_email, to_name: appt.patient_name,
+    appt_id: appt.id, doctor_name: appt.doctor_name,
+    clinic_name: appt.clinic_name, clinic_address: appt.clinic_address,
+    specialty: appt.specialty, appt_date: appt.date, appt_slot: appt.slot,
+  });
+}
+
+// ── API HELPERS ──────────────────────────────────────────────
+async function api(method, url, body) {
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(url, opts);
+  return r.json();
+}
+
+// ── DATA CACHE ───────────────────────────────────────────────
+let CLINICS = [], DOCTORS = [];
+const SPECIALTY_SYMPTOMS = {
+  "Tim mạch":      ["Đau ngực","Hồi hộp - tim đập nhanh","Khó thở khi gắng sức","Phù chân"],
+  "Nội tiêu hóa":  ["Đau bụng - buồn nôn","Ợ chua - trào ngược","Tiêu chảy/táo bón","Chướng bụng"],
+  "Nhi khoa":      ["Trẻ sốt cao","Ho kéo dài","Chậm phát triển","Dị ứng thức ăn"],
+  "Da liễu":       ["Nổi mẩn - ngứa","Mụn trứng cá","Rụng tóc","Vết thương lâu lành"],
+  "Thần kinh":     ["Đau đầu mãn tính","Chóng mặt","Tê bì tay chân","Mất ngủ"],
+  "Cơ xương khớp": ["Đau lưng - cổ","Đau khớp gối","Cứng khớp buổi sáng","Thoát vị đĩa đệm"],
+};
+const STEP_LABELS = ["Thông tin","Phòng khám","Chuyên khoa","Thời gian","Xác nhận","Hoàn tất"];
+
+// ── STATE ────────────────────────────────────────────────────
+let SESSION = null; // user từ server
+let S = freshState();
+let AUTH_MODE = 'login';
+let AUTH_ERROR = '';
+let VIEW = 'booking'; // 'booking' | 'myappts'
+
+function freshState() {
+  return {
+    step: 1,
+    patient: { name: SESSION?.name || '', email: SESSION?.email || '', location: '' },
+    clinic: null, specialty: null, symptom: null, doctor: null,
+    date: '', slot: null,
+    confirmedAppt: null,
+    logs: [],
+    emailStatus: null,
+    emailError: '',
+    bookedSlots: [],
+  };
+}
+
+function addLog(msg) {
+  S.logs.push(`[${new Date().toLocaleTimeString('vi-VN')}] ${msg}`);
+}
+
+// ── HELPERS ──────────────────────────────────────────────────
+function nearestClinics() { return [...CLINICS].sort((a,b) => a.distance - b.distance); }
+function authInitials(name) {
+  return (name||'').trim().split(/\s+/).slice(-2).map(w=>w[0]).join('').toUpperCase() || '?';
+}
+function genId() { return 'A' + Math.random().toString(36).substr(2,6).toUpperCase(); }
+function suggestAlternatives(doctor, booked, preferred) {
+  const free = doctor.slots.filter(s => !booked.includes(s) && s !== preferred);
+  free.sort((a,b) => Math.abs(parseInt(a)-parseInt(preferred)) - Math.abs(parseInt(b)-parseInt(preferred)));
+  return free.slice(0,6);
+}
+
+// ── RENDER ENGINE ────────────────────────────────────────────
+function render() {
+  const PW = document.getElementById('progressWrap');
+  const UB = document.getElementById('userBar');
+  const AC = document.getElementById('appContent');
+
+  if (!SESSION) {
+    PW.style.display = 'none';
+    UB.innerHTML = '';
+    AC.innerHTML = renderAuth();
+    bindAuth();
+    return;
+  }
+
+  renderUserBar(UB);
+
+  if (VIEW === 'myappts') {
+    PW.style.display = 'none';
+    renderMyAppts(AC);
+    return;
+  }
+
+  PW.style.display = '';
+  renderProgress();
+  const steps = {1:renderStep1,2:renderStep2,3:renderStep3,4:renderStep4,5:renderStep5,6:renderStep6};
+  AC.innerHTML = (steps[S.step]||renderStep1)();
+  bindAll();
+}
+
+function renderUserBar(el) {
+  el.innerHTML = `
+  <div class="user-bar">
+    <div class="user-bar-left">
+      <div class="user-bar-avatar">${authInitials(SESSION.name)}</div>
+      <div>
+        <div class="user-bar-name">${SESSION.name}</div>
+        <div class="user-bar-email">${SESSION.email}</div>
+      </div>
+    </div>
+    <div class="user-bar-right">
+      <button class="btn-icon" id="btnMyAppts">📋 Lịch của tôi</button>
+      <button class="btn-icon btn-logout" id="btnLogout">Đăng xuất</button>
+    </div>
+  </div>`;
+  document.getElementById('btnLogout').onclick = async () => {
+    await api('POST','/api/logout');
+    SESSION = null; S = freshState(); AUTH_MODE='login'; AUTH_ERROR=''; VIEW='booking';
+    render();
+  };
+  document.getElementById('btnMyAppts').onclick = () => {
+    VIEW = VIEW==='myappts' ? 'booking' : 'myappts';
+    render();
+  };
+}
+
+function renderProgress() {
+  document.getElementById('progressLabels').innerHTML = STEP_LABELS.map((l,i)=>{
+    const n=i+1, cls=n<S.step?'done':n===S.step?'active':'';
+    return `<div class="progress-label ${cls}">${l}</div>`;
+  }).join('');
+  document.getElementById('progressBar').innerHTML = STEP_LABELS.map((_,i)=>{
+    const n=i+1, cls=n<S.step?'done':n===S.step?'active':'';
+    return `<div class="progress-seg ${cls}"></div>`;
+  }).join('');
+}
+
+// ── AUTH ─────────────────────────────────────────────────────
+function renderAuth() {
+  const isLogin = AUTH_MODE==='login';
+  return `
+  <div class="auth-wrap">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🏥</div>
+      <h2>Đặt lịch khám sức khỏe</h2>
+      <p>${isLogin?'Đăng nhập để tiếp tục':'Tạo tài khoản miễn phí'}</p>
+    </div>
+    <div class="card">
+      <div class="auth-tabs">
+        <button class="auth-tab ${isLogin?'active':''}" id="tabLogin">Đăng nhập</button>
+        <button class="auth-tab ${!isLogin?'active':''}" id="tabRegister">Đăng ký</button>
+      </div>
+      <div class="auth-error ${AUTH_ERROR?'show':''}">${AUTH_ERROR||''}</div>
+      ${isLogin ? `
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="authEmail" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mật khẩu</label>
+          <input type="password" id="authPassword" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary" id="btnLogin" style="width:100%;justify-content:center">Đăng nhập</button>
+        <div class="auth-footnote">Chưa có tài khoản? <a href="#" id="goRegister" style="color:var(--primary);font-weight:600;text-decoration:none">Đăng ký ngay</a></div>
+      ` : `
+        <div class="form-group">
+          <label class="form-label">Họ và tên</label>
+          <input type="text" id="authName" placeholder="VD: Nguyễn Văn A">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="authEmail" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mật khẩu</label>
+          <input type="password" id="authPassword" placeholder="Tối thiểu 6 ký tự">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nhập lại mật khẩu</label>
+          <input type="password" id="authPassword2" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary" id="btnRegister" style="width:100%;justify-content:center">Tạo tài khoản</button>
+        <div class="auth-footnote">Đã có tài khoản? <a href="#" id="goLogin" style="color:var(--primary);font-weight:600;text-decoration:none">Đăng nhập</a></div>
+      `}
+      <div class="auth-footnote" style="margin-top:8px;font-size:11px;color:var(--gray-300)">🔒 Tài khoản được lưu trên máy chủ</div>
+    </div>
+  </div>`;
+}
+
+function bindAuth() {
+  document.getElementById('tabLogin')?.addEventListener('click', ()=>{ AUTH_MODE='login'; AUTH_ERROR=''; render(); });
+  document.getElementById('tabRegister')?.addEventListener('click', ()=>{ AUTH_MODE='register'; AUTH_ERROR=''; render(); });
+  document.getElementById('goRegister')?.addEventListener('click', e=>{ e.preventDefault(); AUTH_MODE='register'; AUTH_ERROR=''; render(); });
+  document.getElementById('goLogin')?.addEventListener('click', e=>{ e.preventDefault(); AUTH_MODE='login'; AUTH_ERROR=''; render(); });
+
+  document.getElementById('btnLogin')?.addEventListener('click', async () => {
+    const email = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    if (!email||!password) { AUTH_ERROR='Vui lòng nhập đầy đủ email và mật khẩu.'; render(); return; }
+    const r = await api('POST','/api/login',{email,password});
+    if (!r.ok) { AUTH_ERROR=r.error; render(); return; }
+    SESSION=r.user; S=freshState(); AUTH_ERROR=''; render();
+  });
+
+  document.getElementById('btnRegister')?.addEventListener('click', async () => {
+    const name = document.getElementById('authName').value.trim();
+    const email = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    const password2 = document.getElementById('authPassword2').value;
+    if (!name) { AUTH_ERROR='Vui lòng nhập họ và tên.'; render(); return; }
+    if (!email||!email.includes('@')) { AUTH_ERROR='Email không hợp lệ.'; render(); return; }
+    if (password.length<6) { AUTH_ERROR='Mật khẩu phải có ít nhất 6 ký tự.'; render(); return; }
+    if (password!==password2) { AUTH_ERROR='Mật khẩu nhập lại không khớp.'; render(); return; }
+    const r = await api('POST','/api/register',{name,email,password});
+    if (!r.ok) { AUTH_ERROR=r.error; render(); return; }
+    SESSION=r.user; S=freshState(); AUTH_ERROR=''; render();
+  });
+}
+
+// ── MY APPOINTMENTS ──────────────────────────────────────────
+async function renderMyAppts(el) {
+  el.innerHTML = `<div class="loading"><div class="spinner"></div>Đang tải lịch hẹn...</div>`;
+  const appts = await api('GET','/api/appointments');
+  if (!appts.length) {
+    el.innerHTML = `
+    <div class="card" style="text-align:center;padding:36px">
+      <div style="font-size:40px;margin-bottom:12px">📋</div>
+      <div style="font-weight:700;color:var(--gray-700);margin-bottom:6px">Chưa có lịch hẹn nào</div>
+      <div style="font-size:13px;color:var(--gray-400);margin-bottom:20px">Đặt lịch đầu tiên của bạn ngay!</div>
+      <button class="btn btn-primary" id="btnGoBook">+ Đặt lịch ngay</button>
+    </div>`;
+    document.getElementById('btnGoBook').onclick = () => { VIEW='booking'; render(); };
+    return;
+  }
+  el.innerHTML = `
+  <div class="card">
+    <div class="card-title"><div class="icon">📋</div> Lịch hẹn của tôi (${appts.length})</div>
+    ${appts.map(a=>`
+    <div class="appt-card">
+      <div>
+        <div style="font-weight:700;color:var(--gray-800);margin-bottom:4px">${a.doctor_name}</div>
+        <div style="font-size:12px;color:var(--gray-500);margin-bottom:3px">🏥 ${a.clinic_name||''}</div>
+        <div style="font-size:12px;color:var(--gray-500)">🩺 ${a.specialty} · ${a.symptom||''}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;padding-left:12px">
+        <div style="font-weight:700;color:var(--primary);font-size:14px">${a.slot}</div>
+        <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px">${a.date}</div>
+        <span class="appt-badge">✓ ${a.status==='confirmed'?'Đã xác nhận':a.status}</span>
+      </div>
+    </div>`).join('')}
+    <div style="margin-top:16px">
+      <button class="btn btn-primary" id="btnGoBook">+ Đặt lịch mới</button>
+    </div>
+  </div>`;
+  document.getElementById('btnGoBook').onclick = () => { VIEW='booking'; S=freshState(); render(); };
+}
+
+// ── STEP 1 ───────────────────────────────────────────────────
+function renderStep1() {
+  return `
+  <div class="card">
+    <div class="card-title"><div class="icon">👤</div> Thông tin bệnh nhân</div>
+    <div class="form-group">
+      <label class="form-label">Họ và tên *</label>
+      <input type="text" id="pName" placeholder="VD: Nguyễn Văn A" value="${S.patient.name}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email nhận nhắc lịch *</label>
+      <input type="email" id="pEmail" placeholder="email@example.com" value="${S.patient.email}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Vị trí của bạn</label>
+      <input type="text" id="pLocation" placeholder="VD: 21 Đình Thôn, Cầu Giấy, Hà Nội" value="${S.patient.location||'21 Đình Thôn, Cầu Giấy, Hà Nội'}">
+    </div>
+    <div class="btn-actions">
+      <span></span>
+      <button class="btn btn-primary" id="btn1Next">Tiếp theo →</button>
+    </div>
+  </div>`;
+}
+
+// ── STEP 2 ───────────────────────────────────────────────────
+function renderStep2() {
+  const sorted = nearestClinics();
+  return `
+  <div class="card">
+    <div class="card-title"><div class="icon">📍</div> Chọn phòng khám gần nhất</div>
+    <div class="alert alert-info">
+      <span class="alert-icon">ℹ️</span>
+      <span>Danh sách sắp xếp theo khoảng cách từ vị trí của bạn.</span>
+    </div>
+    ${sorted.map((c,i)=>`
+    <div class="clinic-item ${S.clinic?.id===c.id?'active':''}" data-clinic="${c.id}">
+      <div>
+        <div class="clinic-name">${c.name}</div>
+        <div class="clinic-address">📍 ${c.address}</div>
+        <div class="clinic-specs">🩺 ${c.specialties.join(' · ')}</div>
+      </div>
+      <div class="clinic-meta">
+        <div><span class="dist-badge">${c.distance} km</span></div>
+        ${i===0?`<div><span class="nearest-badge">✓ Gần nhất</span></div>`:''}
+        <div class="rating">⭐ ${c.rating}</div>
+      </div>
+    </div>`).join('')}
+    <div class="btn-actions">
+      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
+      <button class="btn btn-primary" id="btnNext" ${!S.clinic?'disabled':''}>Tiếp theo →</button>
+    </div>
+  </div>`;
+}
+
+// ── STEP 3 ───────────────────────────────────────────────────
+function renderStep3() {
+  const specs = S.clinic.specialties;
+  const docs = S.specialty ? DOCTORS.filter(d=>d.clinicId===S.clinic.id&&d.specialty===S.specialty) : [];
+  return `
+  <div class="card">
+    <div class="card-title"><div class="icon">🩺</div> Chọn chuyên khoa & bác sĩ</div>
+    <div class="section-label">Chuyên khoa có tại ${S.clinic.name}</div>
+    <div class="chip-group">
+      ${specs.map(s=>`<button class="chip ${S.specialty===s?'active':''}" data-spec="${s}">${s}</button>`).join('')}
+    </div>
+    ${S.specialty?`
+    <div class="section-label">Triệu chứng phổ biến — ${S.specialty}</div>
+    <div class="chip-group">
+      ${(SPECIALTY_SYMPTOMS[S.specialty]||[]).map(sym=>
+        `<button class="chip ${S.symptom===sym?'active':''}" data-sym="${sym}">${sym}</button>`
+      ).join('')}
+    </div>
+    <div class="section-label">Bác sĩ phụ trách</div>
+    ${docs.length===0?`<p style="color:var(--gray-400);font-size:13px">Không có bác sĩ phù hợp.</p>`
+    :docs.map(d=>`
+    <div class="doctor-item ${S.doctor?.id===d.id?'active':''}" data-doc="${d.id}">
+      <div class="avatar">${d.initials}</div>
+      <div style="flex:1">
+        <div class="doctor-name">${d.name}</div>
+        <div class="doctor-meta">${d.specialty} · ${d.exp} kinh nghiệm · ⭐ ${d.rating}</div>
+      </div>
+      ${S.doctor?.id===d.id?`<span style="color:var(--primary);font-size:18px">✓</span>`:''}
+    </div>`).join('')}
+    `:''}
+    <div class="btn-actions">
+      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
+      <button class="btn btn-primary" id="btnNext" ${!S.doctor||!S.symptom?'disabled':''}>Tiếp theo →</button>
+    </div>
+  </div>`;
+}
+
+// ── STEP 4 ───────────────────────────────────────────────────
+function renderStep4() {
+  const today = new Date().toISOString().split('T')[0];
+  const booked = S.bookedSlots;
+  return `
+  <div class="card">
+    <div class="card-title"><div class="icon">📅</div> Chọn ngày & giờ khám</div>
+    <div class="form-group">
+      <label class="form-label">Ngày khám</label>
+      <input type="date" id="apptDate" value="${S.date}" min="${today}">
+    </div>
+    ${S.date?`
+    <div class="section-label">Khung giờ khám — ${S.doctor.name}</div>
+    <div class="slot-legend">
+      <span><span class="legend-dot" style="background:var(--primary)"></span>Đã chọn</span>
+      <span><span class="legend-dot" style="background:var(--gray-200);border:1px solid var(--gray-300)"></span>Còn trống</span>
+      <span><span class="legend-dot" style="background:var(--red-light);border:1px solid #fca5a5"></span>Đã đặt</span>
+    </div>
+    <div class="slot-grid">
+      ${S.doctor.slots.map(sl=>{
+        const taken=booked.includes(sl), sel=S.slot===sl;
+        return `<button class="slot-btn ${taken?'taken':''} ${sel?'selected':''}"
+          ${taken?'disabled':''} data-slot="${sl}">${sl}</button>`;
+      }).join('')}
+    </div>`:`
+    <p style="color:var(--gray-400);font-size:13px;margin-top:8px">Vui lòng chọn ngày để xem khung giờ.</p>
+    `}
+    <div class="btn-actions">
+      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
+      <button class="btn btn-primary" id="btnNext" ${!S.slot?'disabled':''}>Tiếp theo →</button>
+    </div>
+  </div>`;
+}
+
+// ── STEP 5 ───────────────────────────────────────────────────
+function renderStep5() {
+  const booked = S.bookedSlots;
+  const conflict = booked.includes(S.slot);
+  const alts = conflict ? suggestAlternatives(S.doctor, booked, S.slot) : [];
+  return `
+  <div class="card">
+    <div class="card-title"><div class="icon">✅</div> Xác nhận thông tin lịch hẹn</div>
+    ${conflict?`
+    <div class="alert alert-warning">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Phát hiện trùng lịch!</strong><br>Giờ <strong>${S.slot}</strong> đã được đặt. Chọn giờ thay thế:</div>
+    </div>
+    <div class="chip-group" style="margin-bottom:16px">
+      ${alts.map(sl=>`<button class="chip" data-altslot="${sl}">${sl}</button>`).join('')}
+    </div>`:''}
+    <table class="info-table">
+      <tr><td>Bệnh nhân</td><td>${S.patient.name}</td></tr>
+      <tr><td>Email</td><td>${S.patient.email}</td></tr>
+      <tr><td>Phòng khám</td><td>${S.clinic.name}</td></tr>
+      <tr><td>Địa chỉ</td><td>${S.clinic.address}</td></tr>
+      <tr><td>Chuyên khoa</td><td>${S.specialty}</td></tr>
+      <tr><td>Triệu chứng</td><td>${S.symptom}</td></tr>
+      <tr><td>Bác sĩ</td><td>${S.doctor.name}</td></tr>
+      <tr><td>Ngày khám</td><td>${S.date}</td></tr>
+      <tr><td>Giờ khám</td><td><strong>${S.slot}</strong>
+        <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;
+          background:${conflict?'var(--amber-light)':'var(--green-light)'};
+          color:${conflict?'var(--amber)':'var(--green)'}">
+          ${conflict?'⚠ Chờ xác nhận':'✓ Còn trống'}
+        </span>
+      </td></tr>
+    </table>
+    <div class="btn-actions">
+      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
+      ${!conflict?`<button class="btn btn-success" id="btnConfirm">Đặt lịch ngay ✓</button>`:''}
+    </div>
+  </div>`;
+}
+
+// ── STEP 6 ───────────────────────────────────────────────────
+function renderStep6() {
+  const a = S.confirmedAppt;
+  const st = S.emailStatus;
+  let emailBox = '';
+  if (st==='sending') emailBox=`<div class="alert alert-info"><span class="alert-icon">📧</span><div>Đang gửi email xác nhận đến <strong>${a.patient_email}</strong>...</div></div>`;
+  else if (st==='ok') emailBox=`<div class="alert alert-success"><span class="alert-icon">📧</span><div>Email xác nhận đã gửi tới <strong>${a.patient_email}</strong>. Kiểm tra hộp thư (và mục Spam).</div></div>`;
+  else if (st==='fail') emailBox=`<div class="alert alert-warning"><span class="alert-icon">⚠️</span><div>Không gửi được email (${S.emailError||'lỗi không xác định'}). Thông tin lịch hẹn vẫn được lưu.
+    <div style="margin-top:8px"><button class="btn btn-outline" id="btnResendEmail" style="font-size:12px;padding:6px 12px">↻ Gửi lại email</button></div>
+  </div></div>`;
+
+  return `
+  <div class="card">
+    <div class="success-screen">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Đặt lịch thành công!</div>
+      <div class="success-subtitle">Mã lịch hẹn: <strong>${a.id}</strong></div>
+      <div class="appt-summary">
+        <table class="info-table">
+          <tr><td>Bác sĩ</td><td>${a.doctor_name}</td></tr>
+          <tr><td>Phòng khám</td><td>${a.clinic_name}</td></tr>
+          <tr><td>Địa chỉ</td><td>${a.clinic_address}</td></tr>
+          <tr><td>Chuyên khoa</td><td>${a.specialty}</td></tr>
+          <tr><td>Ngày khám</td><td>${a.date}</td></tr>
+          <tr><td>Giờ khám</td><td><strong>${a.slot}</strong></td></tr>
+        </table>
+      </div>
+      ${emailBox}
+      <div class="log-panel">
+        ${S.logs.map(l=>`<div class="log-line">${l}</div>`).join('')}
+      </div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-outline" id="btnViewAppts">📋 Xem lịch của tôi</button>
+        <button class="btn btn-primary" id="btnReset">+ Đặt lịch mới</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── BIND EVENTS ──────────────────────────────────────────────
+function bindAll() {
+  // Step 1
+  document.getElementById('btn1Next')?.addEventListener('click', () => {
+    const name = document.getElementById('pName').value.trim();
+    const email = document.getElementById('pEmail').value.trim();
+    const location = document.getElementById('pLocation').value.trim();
+    if (!name) { alert('Vui lòng nhập họ và tên!'); return; }
+    if (!email||!email.includes('@')) { alert('Vui lòng nhập email hợp lệ!'); return; }
+    S.patient = { name, email, location: location||'21 Đình Thôn, Cầu Giấy, Hà Nội' };
+    addLog(`Bệnh nhân: ${name} <${email}>`);
+    S.step=2; render();
+  });
+
+  // Back
+  document.getElementById('btnBack')?.addEventListener('click', () => { S.step--; render(); });
+
+  // Next
+  document.getElementById('btnNext')?.addEventListener('click', () => { S.step++; render(); });
+
+  // Clinic
+  document.querySelectorAll('[data-clinic]').forEach(el=>
+    el.addEventListener('click', ()=>{
+      S.clinic = CLINICS.find(c=>c.id===+el.dataset.clinic);
+      S.specialty=null; S.symptom=null; S.doctor=null;
+      addLog(`Phòng khám: ${S.clinic.name}`);
+      render();
+    })
+  );
+
+  // Specialty
+  document.querySelectorAll('[data-spec]').forEach(el=>
+    el.addEventListener('click', ()=>{
+      S.specialty=el.dataset.spec; S.symptom=null; S.doctor=null;
+      addLog(`Chuyên khoa: ${S.specialty}`);
+      render();
+    })
+  );
+
+  // Symptom
+  document.querySelectorAll('[data-sym]').forEach(el=>
+    el.addEventListener('click', ()=>{
+      S.symptom=el.dataset.sym;
+      addLog(`Triệu chứng: ${S.symptom}`);
+      render();
+    })
+  );
+
+  // Doctor
+  document.querySelectorAll('[data-doc]').forEach(el=>
+    el.addEventListener('click', ()=>{
+      S.doctor=DOCTORS.find(d=>d.id===+el.dataset.doc);
+      addLog(`Bác sĩ: ${S.doctor.name}`);
+      render();
+    })
+  );
+
+  // Date — fetch booked slots from server
+  document.getElementById('apptDate')?.addEventListener('change', async e=>{
+    S.date=e.target.value; S.slot=null;
+    addLog(`Ngày khám: ${S.date}`);
+    const slots = await api('GET',`/api/appointments/booked?doctorId=${S.doctor.id}&date=${S.date}`);
+    S.bookedSlots = Array.isArray(slots) ? slots : [];
+    render();
+  });
+
+  // Slot
+  document.querySelectorAll('[data-slot]').forEach(el=>
+    el.addEventListener('click', ()=>{
+      S.slot=el.dataset.slot;
+      addLog(`Giờ chọn: ${S.slot}`);
+      render();
+    })
+  );
+
+  // Alt slot
+  document.querySelectorAll('[data-altslot]').forEach(el=>
+    el.addEventListener('click', ()=>{
+      S.slot=el.dataset.altslot;
+      addLog(`Giờ thay thế: ${S.slot}`);
+      render();
+    })
+  );
+
+  // Confirm — POST to server
+  document.getElementById('btnConfirm')?.addEventListener('click', async ()=>{
+    addLog('Đang đặt lịch...');
+    const r = await api('POST','/api/appointments',{
+      clinicId: S.clinic.id, clinicName: S.clinic.name, clinicAddress: S.clinic.address,
+      doctorId: S.doctor.id, doctorName: S.doctor.name,
+      specialty: S.specialty, symptom: S.symptom,
+      date: S.date, slot: S.slot,
+    });
+    if (!r.ok) {
+      addLog(`❌ Lỗi: ${r.error}`);
+      // Refresh booked slots và re-render step 4
+      const slots = await api('GET',`/api/appointments/booked?doctorId=${S.doctor.id}&date=${S.date}`);
+      S.bookedSlots = Array.isArray(slots)?slots:[];
+      render(); return;
+    }
+    S.confirmedAppt = r.appointment;
+    addLog(`✅ Đặt lịch thành công! Mã: ${r.appointment.id}`);
+    S.step=6; S.emailStatus='sending'; S.emailError='';
+    render();
+    // Gửi email
+    sendConfirmationEmail(r.appointment)
+      .then(()=>{ S.emailStatus='ok'; addLog('📧 Email đã gửi thành công'); render(); })
+      .catch(err=>{ S.emailStatus='fail'; S.emailError=err?.text||err?.message||'lỗi'; addLog(`❌ Gửi email thất bại: ${S.emailError}`); render(); });
+  });
+
+  // Resend email
+  document.getElementById('btnResendEmail')?.addEventListener('click', ()=>{
+    S.emailStatus='sending'; S.emailError=''; render();
+    sendConfirmationEmail(S.confirmedAppt)
+      .then(()=>{ S.emailStatus='ok'; render(); })
+      .catch(err=>{ S.emailStatus='fail'; S.emailError=err?.text||err?.message||'lỗi'; render(); });
+  });
+
+  // Reset
+  document.getElementById('btnReset')?.addEventListener('click', ()=>{ S=freshState(); render(); });
+  document.getElementById('btnViewAppts')?.addEventListener('click', ()=>{ VIEW='myappts'; render(); });
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+async function init() {
+  document.getElementById('appContent').innerHTML = `<div class="loading"><div class="spinner"></div>Đang tải...</div>`;
+  // Load session + data song song
+  const [meRes, clinicsRes, doctorsRes] = await Promise.all([
+    api('GET','/api/me'),
+    api('GET','/api/clinics'),
+    api('GET','/api/doctors'),
+  ]);
+  SESSION = meRes.user || null;
+  CLINICS = clinicsRes || [];
+  DOCTORS = doctorsRes || [];
+  if (SESSION) S = freshState();
+  render();
+}
+
+init();
+</script>
+</body>
+</html>

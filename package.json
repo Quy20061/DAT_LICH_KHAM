@@ -1,0 +1,16 @@
+{
+  "name": "dat-lich-kham",
+  "version": "1.0.0",
+  "description": "Ứng dụng đặt lịch khám sức khỏe online",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "csv-parse": "^5.5.3",
+    "csv-stringify": "^6.4.4",
+    "express-session": "^1.17.3"
+  }
+}
