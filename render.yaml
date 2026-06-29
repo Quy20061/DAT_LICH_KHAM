@@ -1,0 +1,55 @@
+# render.yaml — Blueprint triển khai trên Render.
+# Vào Render → New → Blueprint → trỏ tới repo chứa file này.
+services:
+  # 1) Web service chạy app
+  - type: web
+    name: dat-lich-kham
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true        # Render tự sinh chuỗi ngẫu nhiên
+      - key: CRON_SECRET
+        generateValue: true
+      - key: ADMIN_EMAILS
+        sync: false                # tự nhập trong dashboard (vd: admin@phongkham.vn)
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_SECURE
+        value: "false"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false                # mật khẩu ứng dụng — KHÔNG hiển thị trong code
+      - key: MAIL_FROM
+        sync: false
+
+  # 2) Cron Job nhắc lịch (chạy độc lập, KHÔNG bị ảnh hưởng bởi web service ngủ)
+  #    Lưu ý: Cron Job trên Render thuộc gói trả phí. Nếu dùng gói free,
+  #    hãy dùng GitHub Actions trong .github/workflows/reminders.yml để thay thế.
+  - type: cron
+    name: nhac-lich-cron
+    runtime: node
+    plan: starter
+    schedule: "*/15 * * * *"       # mỗi 15 phút
+    buildCommand: npm install
+    startCommand: node scripts/run-reminders.js
+    envVars:
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_SECURE
+        value: "false"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false

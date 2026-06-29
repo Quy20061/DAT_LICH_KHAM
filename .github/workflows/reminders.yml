@@ -1,0 +1,30 @@
+name: Nhắc lịch khám (ping cron)
+
+# Vì sao cần file này?
+# Render gói free sẽ NGỦ khi không có request → cron nội bộ ngừng chạy.
+# GitHub Actions chạy MIỄN PHÍ theo lịch, gọi tới endpoint nhắc lịch
+# vừa để gửi email 24h/1h, vừa "đánh thức" server Render.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # mỗi 15 phút (giờ UTC)
+  workflow_dispatch: {}        # cho phép bấm chạy tay trong tab Actions
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gọi endpoint nhắc lịch
+        run: |
+          curl -fsS -X POST \
+            "${{ secrets.APP_URL }}/api/cron/run-reminders?key=${{ secrets.CRON_SECRET }}" \
+            && echo "Đã gọi nhắc lịch thành công" \
+            || echo "Gọi nhắc lịch thất bại"
+
+# CÁCH CẤU HÌNH:
+# 1. Trên GitHub repo → Settings → Secrets and variables → Actions → New repository secret:
+#      APP_URL      = https://ten-app-cua-ban.onrender.com   (KHÔNG có dấu / ở cuối)
+#      CRON_SECRET  = đúng giá trị CRON_SECRET đã đặt trên Render
+# 2. Lưu lại. GitHub sẽ tự chạy theo lịch.
+# Lưu ý: lịch của GitHub Actions có thể trễ vài phút khi hệ thống bận — không sao,
+# logic nhắc lịch đã thiết kế chịu được việc chạy thưa (không gửi trùng).

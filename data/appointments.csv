@@ -1,7 +1,10 @@
-id,patient_name,patient_email,clinic_id,clinic_name,clinic_address,doctor_id,doctor_name,specialty,symptom,date,slot,status,created_at
-A001,Nguyễn Văn An,an@gmail.com,1,,,1,,Tim mạch,Đau ngực,2025-07-01,09:00,confirmed,
-A002,Trần Thị Bình,binh@gmail.com,1,,,2,,Nội tiêu hóa,Đau bụng - buồn nôn,2025-07-01,10:30,confirmed,
-A003,Lê Minh Cường,cuong@gmail.com,2,,,5,,Thần kinh,Đau đầu mãn tính,2025-07-02,14:00,confirmed,
-AMQYCTZL7,Trần Văn Qusy,hiyava3@gmail.com,4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,10,BS. Lý Thị Kim,Nhi khoa,Chậm phát triển,2026-06-29,14:30,confirmed,2026-06-28T22:22:35.371Z
-AMQYD3JC7,Tranquy,tranquy190806@gmail.com,4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,10,BS. Lý Thị Kim,Nhi khoa,Trẻ sốt cao,2026-06-30,08:30,confirmed,2026-06-28T22:30:00.871Z
-AMQYD7P81,Tranquy,tranquy190806@gmail.com,1,Phòng khám Đa khoa An Bình,12 Hoàng Diệu - Hà Nội,2,BS. Trần Thị Lan,Nội tiêu hóa,Ợ chua - trào ngược,2026-06-30,10:00,confirmed,2026-06-28T22:33:15.121Z
+id,patient_name,patient_email,patient_phone,insurance,province,district,ward,address_detail,clinic_id,clinic_name,clinic_address,doctor_id,doctor_name,specialty,symptom,date,slot,status,reminder_24h_sent,reminder_1h_sent,created_at
+A001,Nguyễn Văn An,an@gmail.com,0901234567,Không,Hà Nội,Cầu Giấy,Dịch Vọng,Số 5 ngõ 12,1,Phòng khám Đa khoa An Bình,12 Hoàng Diệu - Hà Nội,1,BS. Nguyễn Minh Tú,Tim mạch,Đau ngực,2025-07-01,09:30,confirmed,,,2025-06-20T08:00:00.000Z
+A002,Trần Thị Bình,binh@gmail.com,0912345678,Có BHYT,Hà Nội,Đống Đa,Láng Hạ,12 Thái Hà,1,Phòng khám Đa khoa An Bình,12 Hoàng Diệu - Hà Nội,2,BS. Trần Thị Lan,Nội tiêu hóa,Đau bụng - buồn nôn,2025-07-01,10:00,confirmed,,,2025-06-20T09:00:00.000Z
+A003,Lê Minh Cường,cuong@gmail.com,0987654321,Không,Hà Nội,Hai Bà Trưng,Bạch Mai,88 Bạch Mai,2,Phòng khám Medcare Hà Nội,45 Nguyễn Trãi - Hà Nội,5,BS. Vũ Đức Mạnh,Thần kinh,Đau đầu mãn tính,2025-07-02,14:30,confirmed,,,2025-06-21T10:00:00.000Z
+AMQZ7JK2N,Trần Quý,tranquy190806@gmail.com,0348811295,Không,Hà Nội,Nam Từ Liêm,Cầu Diễn,2313 hà,4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,10,BS. Lý Thị Kim,Nhi khoa,Trẻ sốt cao,2026-06-30,08:30,cancelled,yes,,2026-06-29T12:42:16.799Z
+AMQZ7LEK0,Trần Quý,tranquy190806@gmail.com,0348811295,Không,Hà Nội,Hoàn Kiếm,Hàng Bông,1213,3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,8,BS. Ngô Thị Thu,Tim mạch,Hồi hộp - tim đập nhanh,2026-06-30,08:30,cancelled,yes,,2026-06-29T12:43:42.960Z
+AMQZ7OMHH,Trần Quý,tranquy190806@gmail.com,0348811295,Không,Hà Nội,Ba Đình,Giảng Võ,223,3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,8,BS. Ngô Thị Thu,Tim mạch,Hồi hộp - tim đập nhanh,2026-06-30,10:00,cancelled,yes,,2026-06-29T12:46:13.205Z
+AMQZ87DW9,Trần Quý,tranquy190806@gmail.com,0348811295,Không,Hà Nội,Hoàn Kiếm,Hàng Bông,123,3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,8,BS. Ngô Thị Thu,Tim mạch,Hồi hộp - tim đập nhanh,2026-06-30,09:30,cancelled,yes,,2026-06-29T13:00:48.537Z
+AMQZ8F16W,Trần Quý,tranquy190806@gmail.com,0348811295,Không,Hà Nội,Hoàn Kiếm,Phan Chu Trinh,1231,3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,8,BS. Ngô Thị Thu,Tim mạch,Phù chân,2026-06-30,08:30,cancelled,,,2026-06-29T13:06:45.320Z
+AMQZ8GRQM,Trần Quý,tranquy190806@gmail.com,0348811295,Không,Hà Nội,Hoàn Kiếm,Hàng Mã,12313,3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,9,BS. Trịnh Văn Tân,Nội tiêu hóa,Đau bụng - buồn nôn,2026-06-30,10:00,confirmed,yes,,2026-06-29T13:08:06.382Z

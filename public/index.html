@@ -4,377 +4,310 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Đặt lịch khám sức khỏe online</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="/vn-address.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  /* Phông chữ chính: Times New Roman (kèm Tinos là bản web tương đương để máy thiếu font vẫn đúng) */
+  @import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&display=swap');
 
   :root {
-    --primary: #1251a3;
-    --primary-hover: #0d3f82;
-    --primary-light: #eff5ff;
-    --primary-mid: #b8d0f9;
-    --teal: #0891b2;
-    --green: #059669;
-    --green-light: #d1fae5;
-    --red: #dc2626;
-    --red-light: #fee2e2;
-    --amber: #d97706;
-    --amber-light: #fffbeb;
-    --gray-50: #f8fafc;
-    --gray-100: #f1f5f9;
-    --gray-200: #e2e8f0;
-    --gray-300: #cbd5e1;
-    --gray-400: #94a3b8;
-    --gray-500: #64748b;
-    --gray-600: #475569;
-    --gray-700: #334155;
-    --gray-800: #1e293b;
-    --gray-900: #0f172a;
-    --radius-sm: 8px;
-    --radius: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-    --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
-    --shadow-md: 0 10px 24px -3px rgba(18,81,163,0.10), 0 4px 8px -2px rgba(0,0,0,0.05);
+    --navy: #0d3b66;
+    --navy-700: #0a2e50;
+    --navy-50: #eef3f9;
+    --blue: #14507a;
+    --teal: #16798f;
+    --gold: #b5882b;
+    --green: #1b7a4b;
+    --green-50: #e7f3ec;
+    --red: #b3261e;
+    --red-50: #fbecea;
+    --amber: #9a6700;
+    --amber-50: #fbf3e2;
+    --ink: #1c2430;
+    --muted: #5b6675;
+    --faint: #8a95a3;
+    --line: #d9e0ea;
+    --line-soft: #eceff4;
+    --paper: #f6f8fb;
+    --radius: 6px;
+    --radius-lg: 10px;
+    --shadow: 0 2px 4px rgba(13,59,102,.06);
+    --shadow-md: 0 6px 22px rgba(13,59,102,.12);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-    background: #eef3fb;
+    font-family: 'Times New Roman', 'Tinos', Times, serif;
+    background:
+      linear-gradient(180deg, #eef3f9 0%, #f6f8fb 220px, #f6f8fb 100%);
     min-height: 100vh;
-    padding: 28px 16px 48px;
-    color: var(--gray-900);
-    font-size: 14px;
-    line-height: 1.5;
+    padding: 30px 16px 60px;
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .container { max-width: 680px; margin: 0 auto; }
+  .container { max-width: 720px; margin: 0 auto; }
 
-  /* HEADER */
+  /* HEADER — như tiêu đề một văn bản y tế chính thức */
   .app-header {
-    background: linear-gradient(130deg, #1251a3 0%, #1a6fc4 60%, #0891b2 100%);
-    border-radius: var(--radius-xl);
-    padding: 28px 32px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 70%, var(--teal) 100%);
+    border-radius: var(--radius-lg);
+    padding: 26px 30px;
     color: #fff;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    box-shadow: 0 8px 24px rgba(18,81,163,0.25);
-    position: relative;
-    overflow: hidden;
-  }
-  .app-header::before {
-    content: ''; position: absolute; top: -30px; right: -30px;
-    width: 160px; height: 160px; background: rgba(255,255,255,0.06); border-radius: 50%;
+    margin-bottom: 22px;
+    display: flex; align-items: center; gap: 18px;
+    box-shadow: var(--shadow-md);
+    position: relative; overflow: hidden;
+    border: 1px solid var(--navy-700);
   }
   .app-header::after {
-    content: ''; position: absolute; bottom: -50px; right: 80px;
-    width: 200px; height: 200px; background: rgba(255,255,255,0.04); border-radius: 50%;
+    content: ''; position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    width: 86px; height: 86px; border: 2px solid rgba(255,255,255,.12); border-radius: 50%;
   }
-  .header-icon {
-    width: 56px; height: 56px;
-    background: rgba(255,255,255,0.18);
-    border-radius: var(--radius);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px; flex-shrink: 0;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.2);
+  .header-mark {
+    width: 56px; height: 56px; flex-shrink: 0;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
+    border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
   }
-  .app-header h1 { font-size: 19px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
-  .app-header p { font-size: 13px; opacity: 0.8; }
-
-  /* PROGRESS */
-  .progress-wrap { margin-bottom: 20px; }
-  .progress-labels { display: flex; gap: 2px; margin-bottom: 10px; }
-  .progress-label {
-    flex: 1; text-align: center; font-size: 10.5px; color: var(--gray-400);
-    font-weight: 600; transition: color .2s;
-  }
-  .progress-label.done { color: var(--green); }
-  .progress-label.active { color: var(--primary); }
-  .progress-bar { display: flex; gap: 4px; height: 4px; }
-  .progress-seg { flex: 1; border-radius: 99px; background: var(--gray-200); transition: background .35s; }
-  .progress-seg.done { background: var(--green); }
-  .progress-seg.active { background: var(--primary); }
-
-  /* CARD */
-  .card {
-    background: #fff;
-    border-radius: var(--radius-lg);
-    padding: 24px 26px;
-    box-shadow: var(--shadow-md);
-    margin-bottom: 14px;
-    border: 1px solid rgba(226,232,240,0.6);
-  }
-  .card-title {
-    font-size: 15px; font-weight: 700; color: var(--gray-800);
-    margin-bottom: 18px;
-    display: flex; align-items: center; gap: 9px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--gray-100);
-  }
-  .card-title .icon {
-    width: 34px; height: 34px;
-    background: var(--primary-light);
-    border-radius: var(--radius-sm);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 17px; flex-shrink: 0;
-  }
-
-  /* FORM */
-  .form-group { margin-bottom: 16px; }
-  .form-label {
-    display: block; font-size: 12.5px; font-weight: 600;
-    color: var(--gray-600); margin-bottom: 6px;
-  }
-  input[type=text], input[type=email], input[type=date], input[type=password] {
-    width: 100%; padding: 11px 14px;
-    border: 1.5px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    font-size: 14px; color: var(--gray-900);
-    font-family: inherit;
-    transition: border-color .15s, box-shadow .15s;
-    background: #fff;
-    outline: none;
-  }
-  input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(18,81,163,0.08); }
-  input:disabled { background: var(--gray-50); color: var(--gray-400); cursor: not-allowed; }
-
-  /* BUTTONS */
-  .btn {
-    padding: 10px 22px; border-radius: var(--radius-sm); font-size: 13.5px;
-    font-weight: 600; cursor: pointer; border: none; transition: all .15s;
-    display: inline-flex; align-items: center; gap: 7px;
-    font-family: inherit;
-  }
-  .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 2px 6px rgba(18,81,163,0.25); }
-  .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
-  .btn-primary:disabled { background: var(--gray-300); cursor: not-allowed; box-shadow: none; transform: none; }
-  .btn-outline { background: #fff; color: var(--gray-600); border: 1.5px solid var(--gray-200); }
-  .btn-outline:hover { border-color: var(--gray-300); background: var(--gray-50); }
-  .btn-success { background: var(--green); color: #fff; box-shadow: 0 2px 6px rgba(5,150,105,0.25); }
-  .btn-success:hover { background: #047857; transform: translateY(-1px); }
-  .btn-actions {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--gray-100);
-  }
-
-  /* CHIPS */
-  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
-  .chip {
-    padding: 7px 15px; border-radius: 999px;
-    border: 1.5px solid var(--gray-200);
-    background: #fff; color: var(--gray-600);
-    font-size: 13px; font-weight: 500; cursor: pointer;
-    transition: all .15s; font-family: inherit;
-  }
-  .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-  .chip.active { background: var(--primary-light); border-color: var(--primary); color: var(--primary); font-weight: 700; }
-
-  /* CLINIC CARDS */
-  .clinic-item {
-    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
-    padding: 14px 16px; cursor: pointer; transition: all .18s;
-    margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start;
-  }
-  .clinic-item:hover { border-color: var(--primary); background: var(--primary-light); }
-  .clinic-item.active { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 0 0 3px rgba(18,81,163,0.08); }
-  .clinic-name { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
-  .clinic-address { font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
-  .clinic-specs { font-size: 11.5px; color: var(--gray-400); }
-  .clinic-meta { text-align: right; flex-shrink: 0; padding-left: 14px; }
-  .dist-badge {
-    display: inline-block; background: var(--primary); color: #fff;
-    font-size: 11.5px; font-weight: 700; padding: 3px 10px;
-    border-radius: 999px; margin-bottom: 5px;
-  }
-  .nearest-badge {
-    display: inline-block; background: var(--green-light); color: var(--green);
-    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px;
-  }
-  .rating { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
-
-  /* DOCTOR CARDS */
-  .doctor-item {
-    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
-    padding: 13px 15px; cursor: pointer; transition: all .18s;
-    margin-bottom: 8px; display: flex; align-items: center; gap: 13px;
-  }
-  .doctor-item:hover { border-color: var(--primary); background: var(--primary-light); }
-  .doctor-item.active { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 0 0 3px rgba(18,81,163,0.08); }
-  .avatar {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
-    color: #fff; font-size: 13px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    box-shadow: 0 2px 6px rgba(18,81,163,0.2);
-  }
-  .doctor-name { font-size: 14px; font-weight: 700; color: var(--gray-800); }
-  .doctor-meta { font-size: 12px; color: var(--gray-500); margin-top: 3px; }
-
-  /* TIME SLOTS */
-  .slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
-  .slot-btn {
-    padding: 10px 4px; border-radius: var(--radius-sm);
-    border: 1.5px solid var(--gray-200); background: #fff;
-    font-size: 13px; font-weight: 500; cursor: pointer;
-    text-align: center; transition: all .15s; color: var(--gray-700);
-    font-family: inherit;
-  }
-  .slot-btn:hover:not(.taken) { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
-  .slot-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; font-weight: 600; }
-  .slot-btn.taken { background: var(--red-light); color: var(--red); border-color: #fca5a5; cursor: not-allowed; text-decoration: line-through; opacity: .6; }
-  .slot-btn.suggested { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600; }
-  .slot-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--gray-500); margin-bottom: 12px; margin-top: 4px; }
-  .slot-legend span { display: flex; align-items: center; gap: 5px; }
-  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-
-  /* INFO TABLE */
-  .info-table { width: 100%; border-collapse: collapse; }
-  .info-table tr { border-bottom: 1px solid var(--gray-100); }
-  .info-table tr:last-child { border-bottom: none; }
-  .info-table td { padding: 10px 0; font-size: 13px; }
-  .info-table td:first-child { color: var(--gray-500); width: 38%; }
-  .info-table td:last-child { font-weight: 600; color: var(--gray-800); text-align: right; }
-
-  /* ALERTS */
-  .alert {
-    padding: 12px 15px; border-radius: var(--radius-sm);
-    font-size: 13px; margin-bottom: 14px;
-    display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
-  }
-  .alert-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
-  .alert-warning { background: var(--amber-light); color: #92400e; border: 1px solid #fcd34d; }
-  .alert-success { background: var(--green-light); color: #065f46; border: 1px solid #6ee7b7; }
-  .alert-info { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); }
-  .alert-error { background: var(--red-light); color: var(--red); border: 1px solid #fca5a5; }
-
-  /* SECTION LABEL */
-  .section-label {
-    font-size: 11px; font-weight: 700; color: var(--gray-400);
-    text-transform: uppercase; letter-spacing: .08em;
-    margin-bottom: 10px; margin-top: 18px;
-  }
-
-  /* SUCCESS */
-  .success-screen { text-align: center; padding: 8px 0; }
-  .success-icon {
-    width: 76px; height: 76px; border-radius: 50%;
-    background: var(--green-light); color: var(--green); font-size: 36px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 18px;
-    box-shadow: 0 0 0 10px rgba(5,150,105,0.08);
-  }
-  .success-title { font-size: 22px; font-weight: 800; color: var(--gray-800); margin-bottom: 6px; }
-  .success-subtitle { font-size: 13.5px; color: var(--gray-500); margin-bottom: 22px; }
-  .appt-summary {
-    background: var(--gray-50); border-radius: var(--radius-sm);
-    padding: 16px 18px; text-align: left; margin-bottom: 16px;
-    border: 1px solid var(--gray-100);
-  }
-
-  /* MY APPOINTMENTS */
-  .appt-card {
-    border: 1.5px solid var(--gray-200); border-radius: var(--radius);
-    padding: 14px 16px; margin-bottom: 10px;
-    display: flex; justify-content: space-between; align-items: flex-start;
-  }
-  .appt-badge {
-    display: inline-block; font-size: 11px; font-weight: 700;
-    padding: 3px 9px; border-radius: 999px;
-    background: var(--green-light); color: var(--green);
-  }
-
-  /* LOG */
-  .log-panel {
-    background: var(--gray-800); border-radius: var(--radius-sm);
-    padding: 14px 16px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11.5px;
-    color: #6ee7b7; max-height: 130px; overflow-y: auto; margin-top: 14px;
-    border: 1px solid var(--gray-700);
-  }
-  .log-line { margin-bottom: 4px; }
-
-  /* AUTH */
-  .auth-wrap { max-width: 400px; margin: 32px auto; }
-  .auth-logo { text-align: center; margin-bottom: 24px; }
-  .auth-logo-icon {
-    width: 64px; height: 64px; border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 30px; margin: 0 auto 12px;
-    box-shadow: 0 8px 24px rgba(18,81,163,0.25);
-  }
-  .auth-logo h2 { font-size: 17px; font-weight: 800; color: var(--gray-800); }
-  .auth-logo p { font-size: 13px; color: var(--gray-500); margin-top: 3px; }
-  .auth-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--gray-100); padding: 4px; border-radius: var(--radius-sm); }
-  .auth-tab {
-    flex: 1; text-align: center; padding: 9px 0; border-radius: 6px;
-    font-size: 13px; font-weight: 600; cursor: pointer; color: var(--gray-500);
-    border: none; background: transparent; transition: all .15s; font-family: inherit;
-  }
-  .auth-tab.active { background: #fff; color: var(--primary); box-shadow: var(--shadow); }
-  .auth-error {
-    background: var(--red-light); color: var(--red); font-size: 12.5px;
-    padding: 10px 13px; border-radius: var(--radius-sm); margin-bottom: 14px;
-    display: none; border: 1px solid #fca5a5; font-weight: 500;
-  }
-  .auth-error.show { display: block; }
-  .auth-footnote { font-size: 12.5px; color: var(--gray-400); text-align: center; margin-top: 16px; }
+  .app-header h1 { font-size: 25px; font-weight: 700; letter-spacing: .2px; }
+  .app-header p { font-size: 15px; opacity: .9; margin-top: 2px; font-style: italic; }
 
   /* USER BAR */
   .user-bar {
     display: flex; align-items: center; justify-content: space-between;
-    background: #fff; border-radius: var(--radius);
-    padding: 10px 16px;
-    box-shadow: var(--shadow-sm); margin-bottom: 16px;
-    border: 1px solid var(--gray-100);
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 11px 16px; box-shadow: var(--shadow); margin-bottom: 18px;
   }
-  .user-bar-left { display: flex; align-items: center; gap: 10px; }
-  .user-bar-right { display: flex; align-items: center; gap: 8px; }
-  .user-bar-avatar {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
-    color: #fff; font-weight: 700; font-size: 12px;
+  .user-bar-left { display: flex; align-items: center; gap: 11px; }
+  .user-bar-right { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .ub-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    color: #fff; font-weight: 700; font-size: 15px;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .user-bar-name { font-weight: 600; color: var(--gray-800); font-size: 13px; }
-  .user-bar-email { color: var(--gray-400); font-size: 11.5px; }
-  .btn-icon {
-    background: none; border: none; cursor: pointer; padding: 6px 10px;
-    border-radius: 6px; font-size: 12px; font-weight: 600;
-    color: var(--gray-500); font-family: inherit; transition: all .15s;
-  }
-  .btn-icon:hover { background: var(--gray-100); color: var(--gray-800); }
-  .btn-logout:hover { background: var(--red-light) !important; color: var(--red) !important; }
+  .ub-name { font-weight: 700; font-size: 16px; }
+  .ub-email { color: var(--faint); font-size: 13px; }
+  .ub-role { font-size: 12px; color: var(--gold); font-weight: 700; }
 
-  /* LOADING */
-  .loading { text-align: center; padding: 40px; color: var(--gray-400); font-size: 14px; }
-  .spinner {
-    width: 28px; height: 28px; border: 3px solid var(--gray-200);
-    border-top-color: var(--primary); border-radius: 50%;
-    animation: spin .7s linear infinite; margin: 0 auto 12px;
+  /* PROGRESS */
+  .progress-wrap { margin-bottom: 22px; }
+  .progress-labels { display: flex; gap: 2px; margin-bottom: 9px; }
+  .progress-label { flex: 1; text-align: center; font-size: 12.5px; color: var(--faint); font-weight: 700; }
+  .progress-label.done { color: var(--green); }
+  .progress-label.active { color: var(--navy); }
+  .progress-bar { display: flex; gap: 4px; height: 5px; }
+  .progress-seg { flex: 1; border-radius: 99px; background: var(--line); transition: background .3s; }
+  .progress-seg.done { background: var(--green); }
+  .progress-seg.active { background: var(--navy); }
+
+  /* CARD */
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 26px 28px; box-shadow: var(--shadow-md); margin-bottom: 16px;
   }
+  .card-title {
+    font-size: 19px; font-weight: 700; color: var(--navy);
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--navy-50);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title .icon {
+    width: 36px; height: 36px; background: var(--navy-50); border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0;
+  }
+
+  /* FORM */
+  .form-group { margin-bottom: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-label { display: block; font-size: 15px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+  .req { color: var(--red); }
+  input[type=text], input[type=email], input[type=tel], input[type=date], input[type=password], select {
+    width: 100%; padding: 11px 13px;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    font-size: 16px; color: var(--ink); font-family: inherit;
+    background: #fff; outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  select { cursor: pointer; }
+  input:focus, select:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(13,59,102,.1); }
+  input:disabled, select:disabled { background: var(--paper); color: var(--faint); cursor: not-allowed; }
+  .field-hint { font-size: 13px; color: var(--faint); margin-top: 5px; }
+
+  /* RADIO (BHYT) */
+  .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .radio-pill {
+    flex: 1; min-width: 140px; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 11px 14px; cursor: pointer; display: flex; align-items: center; gap: 9px;
+    font-size: 15px; transition: all .15s; background: #fff;
+  }
+  .radio-pill:hover { border-color: var(--navy); }
+  .radio-pill.active { border-color: var(--navy); background: var(--navy-50); font-weight: 700; color: var(--navy); }
+  .radio-pill .dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--faint); flex-shrink: 0; }
+  .radio-pill.active .dot { border-color: var(--navy); background: radial-gradient(circle, var(--navy) 0 5px, #fff 5px); }
+
+  /* BUTTONS */
+  .btn {
+    padding: 11px 24px; border-radius: var(--radius); font-size: 16px;
+    font-weight: 700; cursor: pointer; border: 1px solid transparent;
+    font-family: inherit; transition: all .15s;
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-primary:hover { background: var(--navy-700); }
+  .btn-primary:disabled { background: var(--line); color: var(--faint); cursor: not-allowed; }
+  .btn-outline { background: #fff; color: var(--muted); border-color: var(--line); }
+  .btn-outline:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-success { background: var(--green); color: #fff; }
+  .btn-success:hover { background: #155f3a; }
+  .btn-danger { background: #fff; color: var(--red); border-color: #e7b9b5; }
+  .btn-danger:hover { background: var(--red-50); }
+  .btn-block { width: 100%; justify-content: center; }
+  .btn-sm { padding: 7px 14px; font-size: 14px; }
+  .btn-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line-soft);
+  }
+
+  /* CHIPS */
+  .chip-group { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 6px; }
+  .chip {
+    padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line);
+    background: #fff; color: var(--muted); font-size: 15px; cursor: pointer;
+    transition: all .15s; font-family: inherit;
+  }
+  .chip:hover { border-color: var(--navy); color: var(--navy); }
+  .chip.active { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 700; }
+
+  /* CLINIC / DOCTOR ITEMS */
+  .clinic-item, .doctor-item {
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 15px 17px; cursor: pointer; transition: all .15s; margin-bottom: 11px;
+  }
+  .clinic-item { display: flex; justify-content: space-between; align-items: flex-start; }
+  .doctor-item { display: flex; align-items: center; gap: 14px; }
+  .clinic-item:hover, .doctor-item:hover { border-color: var(--navy); background: var(--navy-50); }
+  .clinic-item.active, .doctor-item.active { border-color: var(--navy); background: var(--navy-50); box-shadow: 0 0 0 2px rgba(13,59,102,.12); }
+  .clinic-name, .doctor-name { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .clinic-address { font-size: 14px; color: var(--muted); margin-bottom: 4px; }
+  .clinic-specs { font-size: 13.5px; color: var(--faint); }
+  .clinic-meta { text-align: right; flex-shrink: 0; padding-left: 14px; }
+  .dist-badge { display: inline-block; background: var(--navy); color: #fff; font-size: 13.5px; font-weight: 700; padding: 3px 11px; border-radius: 999px; margin-bottom: 5px; }
+  .nearest-badge { display: inline-block; background: var(--green-50); color: var(--green); font-size: 12.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+  .rating { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    color: #fff; font-size: 15px; font-weight: 700; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .doctor-meta { font-size: 14px; color: var(--muted); margin-top: 3px; }
+
+  /* TIME SLOTS */
+  .slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 12px; }
+  .slot-btn {
+    padding: 11px 4px; border-radius: var(--radius); border: 1px solid var(--line);
+    background: #fff; font-size: 16px; cursor: pointer; text-align: center;
+    transition: all .12s; color: var(--ink); font-family: inherit;
+  }
+  .slot-btn:hover:not(:disabled) { border-color: var(--navy); background: var(--navy-50); color: var(--navy); }
+  .slot-btn.selected { border-color: var(--navy); background: var(--navy); color: #fff; font-weight: 700; }
+  .slot-btn.taken { background: var(--red-50); color: var(--red); border-color: #e7b9b5; cursor: not-allowed; text-decoration: line-through; }
+  .slot-btn.blocked { background: var(--paper); color: var(--faint); border-color: var(--line); cursor: not-allowed; }
+  .slot-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; color: var(--muted); margin: 6px 0 4px; }
+  .slot-legend span { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+
+  /* INFO TABLE — như một phiếu hẹn khám */
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-bottom: 1px dotted var(--line); }
+  .info-table tr:last-child { border-bottom: none; }
+  .info-table td { padding: 11px 0; font-size: 16px; vertical-align: top; }
+  .info-table td:first-child { color: var(--muted); width: 36%; }
+  .info-table td:last-child { font-weight: 700; text-align: right; }
+
+  /* ALERTS */
+  .alert { padding: 13px 16px; border-radius: var(--radius); font-size: 15px; margin-bottom: 16px; display: flex; gap: 11px; align-items: flex-start; line-height: 1.5; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+  .alert-info { background: var(--navy-50); color: var(--blue); border: 1px solid #bcd2e8; }
+  .alert-success { background: var(--green-50); color: var(--green); border: 1px solid #aedcc1; }
+  .alert-warning { background: var(--amber-50); color: var(--amber); border: 1px solid #ecd49a; }
+  .alert-error { background: var(--red-50); color: var(--red); border: 1px solid #e7b9b5; }
+
+  .section-label { font-size: 13px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: .06em; margin: 20px 0 10px; }
+
+  /* SUCCESS — phiếu hẹn */
+  .success-screen { text-align: center; }
+  .seal {
+    width: 84px; height: 84px; border-radius: 50%;
+    background: var(--green-50); color: var(--green);
+    border: 2px solid var(--green); font-size: 40px;
+    display: flex; align-items: center; justify-content: center; margin: 4px auto 16px;
+  }
+  .success-title { font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .success-sub { font-size: 16px; color: var(--muted); margin-bottom: 22px; }
+  .slip {
+    background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--navy);
+    border-radius: var(--radius); padding: 18px 22px; text-align: left; margin-bottom: 18px;
+  }
+  .slip-code { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: .5px; }
+
+  /* APPT CARD */
+  .appt-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 15px 17px; margin-bottom: 11px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .badge { display: inline-block; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .badge-ok { background: var(--green-50); color: var(--green); }
+  .badge-cancel { background: var(--red-50); color: var(--red); }
+
+  /* ADMIN TABLE */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .tbl th, .tbl td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--line-soft); }
+  .tbl th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  .tbl-wrap { overflow-x: auto; }
+
+  /* AUTH */
+  .auth-wrap { max-width: 430px; margin: 28px auto; }
+  .auth-logo { text-align: center; margin-bottom: 22px; }
+  .auth-logo-icon {
+    width: 68px; height: 68px; border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    display: flex; align-items: center; justify-content: center; font-size: 34px;
+    margin: 0 auto 12px; color: #fff;
+  }
+  .auth-logo h2 { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .auth-logo p { font-size: 15px; color: var(--muted); margin-top: 3px; }
+  .auth-tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--paper); padding: 4px; border-radius: var(--radius); border: 1px solid var(--line); }
+  .auth-tab { flex: 1; text-align: center; padding: 10px 0; border-radius: 4px; font-size: 15px; font-weight: 700; cursor: pointer; color: var(--muted); border: none; background: transparent; font-family: inherit; }
+  .auth-tab.active { background: #fff; color: var(--navy); box-shadow: var(--shadow); }
+  .auth-error { background: var(--red-50); color: var(--red); font-size: 14px; padding: 11px 13px; border-radius: var(--radius); margin-bottom: 14px; border: 1px solid #e7b9b5; display: none; }
+  .auth-error.show { display: block; }
+  .auth-foot { font-size: 14px; color: var(--muted); text-align: center; margin-top: 16px; }
+  .auth-foot a { color: var(--navy); font-weight: 700; text-decoration: none; }
+
+  .loading { text-align: center; padding: 44px; color: var(--faint); font-size: 16px; }
+  .spinner { width: 30px; height: 30px; border: 3px solid var(--line); border-top-color: var(--navy); border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  @media (max-width: 480px) {
+  .footer-note { text-align: center; font-size: 13px; color: var(--faint); margin-top: 26px; font-style: italic; }
+
+  @media (max-width: 540px) {
+    body { font-size: 16px; padding: 18px 12px 44px; }
     .slot-grid { grid-template-columns: repeat(3, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
     .app-header { padding: 20px; gap: 14px; }
-    .card { padding: 18px 16px; }
-    body { padding: 16px 12px 40px; }
+    .app-header h1 { font-size: 21px; }
+    .card { padding: 20px 17px; }
   }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="app-header">
-    <div class="header-icon">🏥</div>
+    <div class="header-mark">🏥</div>
     <div>
       <h1>Đặt lịch khám sức khỏe online</h1>
-      <p>Chọn phòng khám · Bác sĩ · Thời gian · Nhận email xác nhận</p>
+      <p>Chọn phòng khám · Chuyên khoa · Bác sĩ · Thời gian · Nhận email xác nhận</p>
     </div>
   </div>
 
@@ -386,40 +319,21 @@
   </div>
 
   <div id="appContent"></div>
+
+  <div class="footer-note">Hệ thống đặt lịch khám — Bài tập lớn môn Công nghệ phần mềm</div>
 </div>
 
 <script>
-// ── EMAILJS ──────────────────────────────────────────────────
-const EMAILJS_CONFIG = {
-  serviceId: "service_wj2e8p1",
-  templateId: "template_u20tyjq",
-  publicKey: "vJsDA36FftetIb3k6",
-};
-if (window.emailjs) emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
-
-function sendConfirmationEmail(appt) {
-  if (!window.emailjs) return Promise.reject(new Error("EmailJS chưa tải"));
-  return emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
-    to_email: appt.patient_email, to_name: appt.patient_name,
-    appt_id: appt.id, doctor_name: appt.doctor_name,
-    clinic_name: appt.clinic_name, clinic_address: appt.clinic_address,
-    specialty: appt.specialty, appt_date: appt.date, appt_slot: appt.slot,
-  });
-}
-
-// ── API HELPERS ──────────────────────────────────────────────
+// ── API HELPER ───────────────────────────────────────────────
 async function api(method, url, body) {
-  const opts = {
-    method,
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'same-origin',
-  };
+  const opts = { method, headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin' };
   if (body) opts.body = JSON.stringify(body);
   const r = await fetch(url, opts);
   return r.json();
 }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-// ── DATA CACHE ───────────────────────────────────────────────
+// ── DATA ─────────────────────────────────────────────────────
 let CLINICS = [], DOCTORS = [];
 const SPECIALTY_SYMPTOMS = {
   "Tim mạch":      ["Đau ngực","Hồi hộp - tim đập nhanh","Khó thở khi gắng sức","Phù chân"],
@@ -432,268 +346,199 @@ const SPECIALTY_SYMPTOMS = {
 const STEP_LABELS = ["Thông tin","Phòng khám","Chuyên khoa","Thời gian","Xác nhận","Hoàn tất"];
 
 // ── STATE ────────────────────────────────────────────────────
-let SESSION = null; // user từ server
+let SESSION = null, AUTH_MODE = 'login', AUTH_ERROR = '', VIEW = 'booking';
 let S = freshState();
-let AUTH_MODE = 'login';
-let AUTH_ERROR = '';
-let VIEW = 'booking'; // 'booking' | 'myappts'
 
 function freshState() {
   return {
     step: 1,
-    patient: { name: SESSION?.name || '', email: SESSION?.email || '', location: '' },
+    patient: {
+      name: SESSION?.name || '', email: SESSION?.email || '', phone: SESSION?.phone || '',
+      province: 'Hà Nội', district: '', ward: '', addressDetail: '',
+      insurance: 'Không', insuranceNo: '',
+    },
     clinic: null, specialty: null, symptom: null, doctor: null,
     date: '', slot: null,
-    confirmedAppt: null,
+    bookedSlots: [], blockedSlots: [],
+    confirmedAppt: null, emailStatus: null, emailError: '',
     logs: [],
-    emailStatus: null,
-    emailError: '',
-    bookedSlots: [],
   };
 }
-
-function addLog(msg) {
-  S.logs.push(`[${new Date().toLocaleTimeString('vi-VN')}] ${msg}`);
-}
+function addLog(m){ S.logs.push(`[${new Date().toLocaleTimeString('vi-VN')}] ${m}`); }
 
 // ── HELPERS ──────────────────────────────────────────────────
-function nearestClinics() { return [...CLINICS].sort((a,b) => a.distance - b.distance); }
-function authInitials(name) {
-  return (name||'').trim().split(/\s+/).slice(-2).map(w=>w[0]).join('').toUpperCase() || '?';
-}
-function genId() { return 'A' + Math.random().toString(36).substr(2,6).toUpperCase(); }
-function suggestAlternatives(doctor, booked, preferred) {
-  const free = doctor.slots.filter(s => !booked.includes(s) && s !== preferred);
-  free.sort((a,b) => Math.abs(parseInt(a)-parseInt(preferred)) - Math.abs(parseInt(b)-parseInt(preferred)));
+function nearestClinics(){ return [...CLINICS].sort((a,b)=>a.distance-b.distance); }
+function authInitials(n){ return (n||'').trim().split(/\s+/).slice(-2).map(w=>w[0]).join('').toUpperCase()||'?'; }
+function unavailable(){ return [...S.bookedSlots, ...S.blockedSlots]; }
+function suggestAlternatives(doctor, taken, preferred){
+  const free = doctor.slots.filter(s=>!taken.includes(s) && s!==preferred);
+  free.sort((a,b)=>Math.abs(parseInt(a)-parseInt(preferred))-Math.abs(parseInt(b)-parseInt(preferred)));
   return free.slice(0,6);
 }
+const isEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e||'');
+const isPhoneVN = p => /^0\d{9}$/.test((p||'').replace(/\s/g,''));
 
-// ── RENDER ENGINE ────────────────────────────────────────────
+// ── RENDER ───────────────────────────────────────────────────
 function render() {
-  const PW = document.getElementById('progressWrap');
-  const UB = document.getElementById('userBar');
-  const AC = document.getElementById('appContent');
-
-  if (!SESSION) {
-    PW.style.display = 'none';
-    UB.innerHTML = '';
-    AC.innerHTML = renderAuth();
-    bindAuth();
-    return;
-  }
-
+  const PW=document.getElementById('progressWrap'), UB=document.getElementById('userBar'), AC=document.getElementById('appContent');
+  if (!SESSION) { PW.style.display='none'; UB.innerHTML=''; AC.innerHTML=renderAuth(); bindAuth(); return; }
   renderUserBar(UB);
-
-  if (VIEW === 'myappts') {
-    PW.style.display = 'none';
-    renderMyAppts(AC);
-    return;
-  }
-
-  PW.style.display = '';
-  renderProgress();
-  const steps = {1:renderStep1,2:renderStep2,3:renderStep3,4:renderStep4,5:renderStep5,6:renderStep6};
-  AC.innerHTML = (steps[S.step]||renderStep1)();
+  if (VIEW==='myappts') { PW.style.display='none'; renderMyAppts(AC); return; }
+  if (VIEW==='admin') { PW.style.display='none'; renderAdmin(AC); return; }
+  PW.style.display=''; renderProgress();
+  AC.innerHTML = ({1:renderStep1,2:renderStep2,3:renderStep3,4:renderStep4,5:renderStep5,6:renderStep6}[S.step]||renderStep1)();
   bindAll();
 }
 
-function renderUserBar(el) {
+function renderUserBar(el){
+  const admin = SESSION.role==='admin';
   el.innerHTML = `
   <div class="user-bar">
     <div class="user-bar-left">
-      <div class="user-bar-avatar">${authInitials(SESSION.name)}</div>
+      <div class="ub-avatar">${authInitials(SESSION.name)}</div>
       <div>
-        <div class="user-bar-name">${SESSION.name}</div>
-        <div class="user-bar-email">${SESSION.email}</div>
+        <div class="ub-name">${esc(SESSION.name)} ${admin?'<span class="ub-role">· QUẢN TRỊ</span>':''}</div>
+        <div class="ub-email">${esc(SESSION.email)}</div>
       </div>
     </div>
     <div class="user-bar-right">
-      <button class="btn-icon" id="btnMyAppts">📋 Lịch của tôi</button>
-      <button class="btn-icon btn-logout" id="btnLogout">Đăng xuất</button>
+      ${admin?`<button class="btn btn-outline btn-sm" id="btnAdmin">⚙ Quản trị</button>`:''}
+      <button class="btn btn-outline btn-sm" id="btnMyAppts">📋 Lịch của tôi</button>
+      <button class="btn btn-outline btn-sm" id="btnLogout">Đăng xuất</button>
     </div>
   </div>`;
-  document.getElementById('btnLogout').onclick = async () => {
-    await api('POST','/api/logout');
-    SESSION = null; S = freshState(); AUTH_MODE='login'; AUTH_ERROR=''; VIEW='booking';
-    render();
-  };
-  document.getElementById('btnMyAppts').onclick = () => {
-    VIEW = VIEW==='myappts' ? 'booking' : 'myappts';
-    render();
-  };
+  document.getElementById('btnLogout').onclick = async ()=>{ await api('POST','/api/logout'); SESSION=null; S=freshState(); VIEW='booking'; render(); };
+  document.getElementById('btnMyAppts').onclick = ()=>{ VIEW = VIEW==='myappts'?'booking':'myappts'; render(); };
+  if (admin) document.getElementById('btnAdmin').onclick = ()=>{ VIEW = VIEW==='admin'?'booking':'admin'; render(); };
 }
 
-function renderProgress() {
-  document.getElementById('progressLabels').innerHTML = STEP_LABELS.map((l,i)=>{
-    const n=i+1, cls=n<S.step?'done':n===S.step?'active':'';
-    return `<div class="progress-label ${cls}">${l}</div>`;
-  }).join('');
-  document.getElementById('progressBar').innerHTML = STEP_LABELS.map((_,i)=>{
-    const n=i+1, cls=n<S.step?'done':n===S.step?'active':'';
-    return `<div class="progress-seg ${cls}"></div>`;
-  }).join('');
+function renderProgress(){
+  document.getElementById('progressLabels').innerHTML = STEP_LABELS.map((l,i)=>{const n=i+1,c=n<S.step?'done':n===S.step?'active':'';return `<div class="progress-label ${c}">${l}</div>`;}).join('');
+  document.getElementById('progressBar').innerHTML = STEP_LABELS.map((_,i)=>{const n=i+1,c=n<S.step?'done':n===S.step?'active':'';return `<div class="progress-seg ${c}"></div>`;}).join('');
 }
 
 // ── AUTH ─────────────────────────────────────────────────────
-function renderAuth() {
-  const isLogin = AUTH_MODE==='login';
+function renderAuth(){
+  const login = AUTH_MODE==='login';
   return `
   <div class="auth-wrap">
     <div class="auth-logo">
       <div class="auth-logo-icon">🏥</div>
       <h2>Đặt lịch khám sức khỏe</h2>
-      <p>${isLogin?'Đăng nhập để tiếp tục':'Tạo tài khoản miễn phí'}</p>
+      <p>${login?'Đăng nhập để tiếp tục':'Tạo tài khoản miễn phí'}</p>
     </div>
     <div class="card">
       <div class="auth-tabs">
-        <button class="auth-tab ${isLogin?'active':''}" id="tabLogin">Đăng nhập</button>
-        <button class="auth-tab ${!isLogin?'active':''}" id="tabRegister">Đăng ký</button>
+        <button class="auth-tab ${login?'active':''}" id="tabLogin">Đăng nhập</button>
+        <button class="auth-tab ${!login?'active':''}" id="tabRegister">Đăng ký</button>
       </div>
-      <div class="auth-error ${AUTH_ERROR?'show':''}">${AUTH_ERROR||''}</div>
-      ${isLogin ? `
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" id="authEmail" placeholder="email@example.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mật khẩu</label>
-          <input type="password" id="authPassword" placeholder="••••••••">
-        </div>
-        <button class="btn btn-primary" id="btnLogin" style="width:100%;justify-content:center">Đăng nhập</button>
-        <div class="auth-footnote">Chưa có tài khoản? <a href="#" id="goRegister" style="color:var(--primary);font-weight:600;text-decoration:none">Đăng ký ngay</a></div>
+      <div class="auth-error ${AUTH_ERROR?'show':''}">${esc(AUTH_ERROR)}</div>
+      ${login ? `
+        <div class="form-group"><label class="form-label">Email</label><input type="email" id="aEmail" placeholder="email@example.com"></div>
+        <div class="form-group"><label class="form-label">Mật khẩu</label><input type="password" id="aPass" placeholder="••••••••"></div>
+        <button class="btn btn-primary btn-block" id="btnLogin">Đăng nhập</button>
+        <div class="auth-foot">Chưa có tài khoản? <a href="#" id="goReg">Đăng ký ngay</a></div>
       ` : `
-        <div class="form-group">
-          <label class="form-label">Họ và tên</label>
-          <input type="text" id="authName" placeholder="VD: Nguyễn Văn A">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" id="authEmail" placeholder="email@example.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mật khẩu</label>
-          <input type="password" id="authPassword" placeholder="Tối thiểu 6 ký tự">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Nhập lại mật khẩu</label>
-          <input type="password" id="authPassword2" placeholder="••••••••">
-        </div>
-        <button class="btn btn-primary" id="btnRegister" style="width:100%;justify-content:center">Tạo tài khoản</button>
-        <div class="auth-footnote">Đã có tài khoản? <a href="#" id="goLogin" style="color:var(--primary);font-weight:600;text-decoration:none">Đăng nhập</a></div>
+        <div class="form-group"><label class="form-label">Họ và tên</label><input type="text" id="aName" placeholder="VD: Nguyễn Văn A"></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" id="aEmail" placeholder="email@example.com"></div>
+        <div class="form-group"><label class="form-label">Số điện thoại</label><input type="tel" id="aPhone" placeholder="VD: 0901234567"></div>
+        <div class="form-group"><label class="form-label">Mật khẩu</label><input type="password" id="aPass" placeholder="Tối thiểu 6 ký tự"></div>
+        <div class="form-group"><label class="form-label">Nhập lại mật khẩu</label><input type="password" id="aPass2" placeholder="••••••••"></div>
+        <button class="btn btn-primary btn-block" id="btnRegister">Tạo tài khoản</button>
+        <div class="auth-foot">Đã có tài khoản? <a href="#" id="goLogin">Đăng nhập</a></div>
       `}
-      <div class="auth-footnote" style="margin-top:8px;font-size:11px;color:var(--gray-300)">🔒 Tài khoản được lưu trên máy chủ</div>
     </div>
   </div>`;
 }
-
-function bindAuth() {
-  document.getElementById('tabLogin')?.addEventListener('click', ()=>{ AUTH_MODE='login'; AUTH_ERROR=''; render(); });
-  document.getElementById('tabRegister')?.addEventListener('click', ()=>{ AUTH_MODE='register'; AUTH_ERROR=''; render(); });
-  document.getElementById('goRegister')?.addEventListener('click', e=>{ e.preventDefault(); AUTH_MODE='register'; AUTH_ERROR=''; render(); });
-  document.getElementById('goLogin')?.addEventListener('click', e=>{ e.preventDefault(); AUTH_MODE='login'; AUTH_ERROR=''; render(); });
-
-  document.getElementById('btnLogin')?.addEventListener('click', async () => {
-    const email = document.getElementById('authEmail').value.trim();
-    const password = document.getElementById('authPassword').value;
-    if (!email||!password) { AUTH_ERROR='Vui lòng nhập đầy đủ email và mật khẩu.'; render(); return; }
-    const r = await api('POST','/api/login',{email,password});
-    if (!r.ok) { AUTH_ERROR=r.error; render(); return; }
+function bindAuth(){
+  const sw=(m)=>{AUTH_MODE=m;AUTH_ERROR='';render();};
+  document.getElementById('tabLogin')?.addEventListener('click',()=>sw('login'));
+  document.getElementById('tabRegister')?.addEventListener('click',()=>sw('register'));
+  document.getElementById('goReg')?.addEventListener('click',e=>{e.preventDefault();sw('register');});
+  document.getElementById('goLogin')?.addEventListener('click',e=>{e.preventDefault();sw('login');});
+  document.getElementById('btnLogin')?.addEventListener('click', async ()=>{
+    const email=document.getElementById('aEmail').value.trim(), password=document.getElementById('aPass').value;
+    if(!email||!password){AUTH_ERROR='Vui lòng nhập đầy đủ email và mật khẩu.';return render();}
+    const r=await api('POST','/api/login',{email,password});
+    if(!r.ok){AUTH_ERROR=r.error;return render();}
     SESSION=r.user; S=freshState(); AUTH_ERROR=''; render();
   });
-
-  document.getElementById('btnRegister')?.addEventListener('click', async () => {
-    const name = document.getElementById('authName').value.trim();
-    const email = document.getElementById('authEmail').value.trim();
-    const password = document.getElementById('authPassword').value;
-    const password2 = document.getElementById('authPassword2').value;
-    if (!name) { AUTH_ERROR='Vui lòng nhập họ và tên.'; render(); return; }
-    if (!email||!email.includes('@')) { AUTH_ERROR='Email không hợp lệ.'; render(); return; }
-    if (password.length<6) { AUTH_ERROR='Mật khẩu phải có ít nhất 6 ký tự.'; render(); return; }
-    if (password!==password2) { AUTH_ERROR='Mật khẩu nhập lại không khớp.'; render(); return; }
-    const r = await api('POST','/api/register',{name,email,password});
-    if (!r.ok) { AUTH_ERROR=r.error; render(); return; }
+  document.getElementById('btnRegister')?.addEventListener('click', async ()=>{
+    const name=document.getElementById('aName').value.trim(), email=document.getElementById('aEmail').value.trim();
+    const phone=document.getElementById('aPhone').value.trim(), password=document.getElementById('aPass').value, p2=document.getElementById('aPass2').value;
+    if(!name)return (AUTH_ERROR='Vui lòng nhập họ và tên.',render());
+    if(!isEmail(email))return (AUTH_ERROR='Email không hợp lệ.',render());
+    if(phone&&!isPhoneVN(phone))return (AUTH_ERROR='Số điện thoại phải gồm 10 số, bắt đầu bằng 0.',render());
+    if(password.length<6)return (AUTH_ERROR='Mật khẩu phải có ít nhất 6 ký tự.',render());
+    if(password!==p2)return (AUTH_ERROR='Mật khẩu nhập lại không khớp.',render());
+    const r=await api('POST','/api/register',{name,email,phone,password});
+    if(!r.ok){AUTH_ERROR=r.error;return render();}
     SESSION=r.user; S=freshState(); AUTH_ERROR=''; render();
   });
 }
 
-// ── MY APPOINTMENTS ──────────────────────────────────────────
-async function renderMyAppts(el) {
-  el.innerHTML = `<div class="loading"><div class="spinner"></div>Đang tải lịch hẹn...</div>`;
-  const appts = await api('GET','/api/appointments');
-  if (!appts.length) {
-    el.innerHTML = `
-    <div class="card" style="text-align:center;padding:36px">
-      <div style="font-size:40px;margin-bottom:12px">📋</div>
-      <div style="font-weight:700;color:var(--gray-700);margin-bottom:6px">Chưa có lịch hẹn nào</div>
-      <div style="font-size:13px;color:var(--gray-400);margin-bottom:20px">Đặt lịch đầu tiên của bạn ngay!</div>
-      <button class="btn btn-primary" id="btnGoBook">+ Đặt lịch ngay</button>
-    </div>`;
-    document.getElementById('btnGoBook').onclick = () => { VIEW='booking'; render(); };
-    return;
+// ── STEP 1: THÔNG TIN + ĐỊA CHỈ + BHYT ───────────────────────
+function districtOptions(){
+  if (S.patient.province==='Hà Nội') {
+    const ds = Object.keys(window.VN_HANOI);
+    return `<select id="pDistrict">${['<option value="">— Chọn quận/huyện —</option>'].concat(ds.map(d=>`<option ${S.patient.district===d?'selected':''}>${d}</option>`)).join('')}</select>`;
   }
-  el.innerHTML = `
-  <div class="card">
-    <div class="card-title"><div class="icon">📋</div> Lịch hẹn của tôi (${appts.length})</div>
-    ${appts.map(a=>`
-    <div class="appt-card">
-      <div>
-        <div style="font-weight:700;color:var(--gray-800);margin-bottom:4px">${a.doctor_name}</div>
-        <div style="font-size:12px;color:var(--gray-500);margin-bottom:3px">🏥 ${a.clinic_name||''}</div>
-        <div style="font-size:12px;color:var(--gray-500)">🩺 ${a.specialty} · ${a.symptom||''}</div>
-      </div>
-      <div style="text-align:right;flex-shrink:0;padding-left:12px">
-        <div style="font-weight:700;color:var(--primary);font-size:14px">${a.slot}</div>
-        <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px">${a.date}</div>
-        <span class="appt-badge">✓ ${a.status==='confirmed'?'Đã xác nhận':a.status}</span>
-      </div>
-    </div>`).join('')}
-    <div style="margin-top:16px">
-      <button class="btn btn-primary" id="btnGoBook">+ Đặt lịch mới</button>
-    </div>
-  </div>`;
-  document.getElementById('btnGoBook').onclick = () => { VIEW='booking'; S=freshState(); render(); };
+  return `<input type="text" id="pDistrict" placeholder="Nhập quận/huyện" value="${esc(S.patient.district)}">`;
 }
-
-// ── STEP 1 ───────────────────────────────────────────────────
-function renderStep1() {
+function wardOptions(){
+  if (S.patient.province==='Hà Nội' && window.VN_HANOI[S.patient.district]) {
+    const ws = window.VN_HANOI[S.patient.district];
+    return `<select id="pWard">${['<option value="">— Chọn phường/xã —</option>'].concat(ws.map(w=>`<option ${S.patient.ward===w?'selected':''}>${w}</option>`)).join('')}</select>`;
+  }
+  return `<input type="text" id="pWard" placeholder="Nhập phường/xã" value="${esc(S.patient.ward)}">`;
+}
+function renderStep1(){
+  const ins = S.patient.insurance;
   return `
   <div class="card">
     <div class="card-title"><div class="icon">👤</div> Thông tin bệnh nhân</div>
-    <div class="form-group">
-      <label class="form-label">Họ và tên *</label>
-      <input type="text" id="pName" placeholder="VD: Nguyễn Văn A" value="${S.patient.name}">
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Họ và tên <span class="req">*</span></label><input type="text" id="pName" value="${esc(S.patient.name)}" placeholder="VD: Nguyễn Văn A"></div>
+      <div class="form-group"><label class="form-label">Số điện thoại <span class="req">*</span></label><input type="tel" id="pPhone" value="${esc(S.patient.phone)}" placeholder="VD: 0901234567"></div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Email nhận nhắc lịch *</label>
-      <input type="email" id="pEmail" placeholder="email@example.com" value="${S.patient.email}">
+    <div class="form-group"><label class="form-label">Email nhận xác nhận & nhắc lịch <span class="req">*</span></label><input type="email" id="pEmail" value="${esc(S.patient.email)}" placeholder="email@example.com"></div>
+
+    <div class="section-label">Địa chỉ (dùng để gợi ý phòng khám gần)</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Tỉnh/Thành phố <span class="req">*</span></label>
+        <select id="pProvince">${window.VN_PROVINCES.map(p=>`<option ${S.patient.province===p?'selected':''}>${p}</option>`).join('')}</select>
+      </div>
+      <div class="form-group"><label class="form-label">Quận/Huyện <span class="req">*</span></label>${districtOptions()}</div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Vị trí của bạn</label>
-      <input type="text" id="pLocation" placeholder="VD: 21 Đình Thôn, Cầu Giấy, Hà Nội" value="${S.patient.location||'21 Đình Thôn, Cầu Giấy, Hà Nội'}">
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Phường/Xã <span class="req">*</span></label>${wardOptions()}</div>
+      <div class="form-group"><label class="form-label">Số nhà, đường</label><input type="text" id="pAddr" value="${esc(S.patient.addressDetail)}" placeholder="VD: Số 5 ngõ 12 Đình Thôn"></div>
     </div>
-    <div class="btn-actions">
-      <span></span>
-      <button class="btn btn-primary" id="btn1Next">Tiếp theo →</button>
+
+    <div class="section-label">Bảo hiểm y tế (BHYT)</div>
+    <div class="radio-group">
+      <div class="radio-pill ${ins==='Không'?'active':''}" data-ins="Không"><span class="dot"></span> Không dùng BHYT</div>
+      <div class="radio-pill ${ins==='Có BHYT'?'active':''}" data-ins="Có BHYT"><span class="dot"></span> Có thẻ BHYT</div>
     </div>
+    ${ins==='Có BHYT'?`<div class="form-group" style="margin-top:12px"><label class="form-label">Mã thẻ BHYT</label><input type="text" id="pInsNo" value="${esc(S.patient.insuranceNo)}" placeholder="VD: GD4010112345678"><div class="field-hint">Mang theo thẻ BHYT khi đến khám để được hưởng quyền lợi.</div></div>`:''}
+
+    <div class="btn-actions"><span></span><button class="btn btn-primary" id="btn1Next">Tiếp theo →</button></div>
   </div>`;
 }
 
-// ── STEP 2 ───────────────────────────────────────────────────
-function renderStep2() {
+// ── STEP 2: PHÒNG KHÁM ───────────────────────────────────────
+function renderStep2(){
   const sorted = nearestClinics();
   return `
   <div class="card">
     <div class="card-title"><div class="icon">📍</div> Chọn phòng khám gần nhất</div>
-    <div class="alert alert-info">
-      <span class="alert-icon">ℹ️</span>
-      <span>Danh sách sắp xếp theo khoảng cách từ vị trí của bạn.</span>
-    </div>
+    <div class="alert alert-info"><span class="alert-icon">ℹ️</span><span>Danh sách được sắp xếp theo khoảng cách (giả lập) từ địa chỉ của bạn — gần nhất lên đầu.</span></div>
     ${sorted.map((c,i)=>`
     <div class="clinic-item ${S.clinic?.id===c.id?'active':''}" data-clinic="${c.id}">
       <div>
-        <div class="clinic-name">${c.name}</div>
-        <div class="clinic-address">📍 ${c.address}</div>
-        <div class="clinic-specs">🩺 ${c.specialties.join(' · ')}</div>
+        <div class="clinic-name">${esc(c.name)}</div>
+        <div class="clinic-address">📍 ${esc(c.address)}</div>
+        <div class="clinic-specs">🩺 ${c.specialties.map(esc).join(' · ')}</div>
       </div>
       <div class="clinic-meta">
         <div><span class="dist-badge">${c.distance} km</span></div>
@@ -701,302 +546,307 @@ function renderStep2() {
         <div class="rating">⭐ ${c.rating}</div>
       </div>
     </div>`).join('')}
-    <div class="btn-actions">
-      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
-      <button class="btn btn-primary" id="btnNext" ${!S.clinic?'disabled':''}>Tiếp theo →</button>
-    </div>
+    <div class="btn-actions"><button class="btn btn-outline" id="btnBack">← Quay lại</button><button class="btn btn-primary" id="btnNext" ${!S.clinic?'disabled':''}>Tiếp theo →</button></div>
   </div>`;
 }
 
-// ── STEP 3 ───────────────────────────────────────────────────
-function renderStep3() {
+// ── STEP 3: CHUYÊN KHOA + BÁC SĨ ─────────────────────────────
+function renderStep3(){
   const specs = S.clinic.specialties;
-  const docs = S.specialty ? DOCTORS.filter(d=>d.clinicId===S.clinic.id&&d.specialty===S.specialty) : [];
+  const docs = S.specialty ? DOCTORS.filter(d=>d.clinicId===S.clinic.id && d.specialty===S.specialty) : [];
   return `
   <div class="card">
     <div class="card-title"><div class="icon">🩺</div> Chọn chuyên khoa & bác sĩ</div>
-    <div class="section-label">Chuyên khoa có tại ${S.clinic.name}</div>
-    <div class="chip-group">
-      ${specs.map(s=>`<button class="chip ${S.specialty===s?'active':''}" data-spec="${s}">${s}</button>`).join('')}
-    </div>
+    <div class="section-label">Chuyên khoa tại ${esc(S.clinic.name)}</div>
+    <div class="chip-group">${specs.map(s=>`<button class="chip ${S.specialty===s?'active':''}" data-spec="${esc(s)}">${esc(s)}</button>`).join('')}</div>
     ${S.specialty?`
-    <div class="section-label">Triệu chứng phổ biến — ${S.specialty}</div>
-    <div class="chip-group">
-      ${(SPECIALTY_SYMPTOMS[S.specialty]||[]).map(sym=>
-        `<button class="chip ${S.symptom===sym?'active':''}" data-sym="${sym}">${sym}</button>`
-      ).join('')}
-    </div>
+    <div class="section-label">Triệu chứng phổ biến — ${esc(S.specialty)}</div>
+    <div class="chip-group">${(SPECIALTY_SYMPTOMS[S.specialty]||[]).map(sym=>`<button class="chip ${S.symptom===sym?'active':''}" data-sym="${esc(sym)}">${esc(sym)}</button>`).join('')}</div>
     <div class="section-label">Bác sĩ phụ trách</div>
-    ${docs.length===0?`<p style="color:var(--gray-400);font-size:13px">Không có bác sĩ phù hợp.</p>`
-    :docs.map(d=>`
+    ${docs.length===0?`<p style="color:var(--faint)">Không có bác sĩ phù hợp tại phòng khám này.</p>`:docs.map(d=>`
     <div class="doctor-item ${S.doctor?.id===d.id?'active':''}" data-doc="${d.id}">
-      <div class="avatar">${d.initials}</div>
-      <div style="flex:1">
-        <div class="doctor-name">${d.name}</div>
-        <div class="doctor-meta">${d.specialty} · ${d.exp} kinh nghiệm · ⭐ ${d.rating}</div>
-      </div>
-      ${S.doctor?.id===d.id?`<span style="color:var(--primary);font-size:18px">✓</span>`:''}
-    </div>`).join('')}
-    `:''}
-    <div class="btn-actions">
-      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
-      <button class="btn btn-primary" id="btnNext" ${!S.doctor||!S.symptom?'disabled':''}>Tiếp theo →</button>
-    </div>
+      <div class="avatar">${esc(d.initials)}</div>
+      <div style="flex:1"><div class="doctor-name">${esc(d.name)}</div><div class="doctor-meta">${esc(d.specialty)} · ${esc(d.exp)} kinh nghiệm · ⭐ ${d.rating}</div></div>
+      ${S.doctor?.id===d.id?`<span style="color:var(--navy);font-size:20px">✓</span>`:''}
+    </div>`).join('')}`:''}
+    <div class="btn-actions"><button class="btn btn-outline" id="btnBack">← Quay lại</button><button class="btn btn-primary" id="btnNext" ${(!S.doctor||!S.symptom)?'disabled':''}>Tiếp theo →</button></div>
   </div>`;
 }
 
-// ── STEP 4 ───────────────────────────────────────────────────
-function renderStep4() {
-  const today = new Date().toISOString().split('T')[0];
-  const booked = S.bookedSlots;
+// ── STEP 4: NGÀY & GIỜ ───────────────────────────────────────
+function renderStep4(){
+  const today = new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Ho_Chi_Minh'});
+  const taken = unavailable();
   return `
   <div class="card">
     <div class="card-title"><div class="icon">📅</div> Chọn ngày & giờ khám</div>
-    <div class="form-group">
-      <label class="form-label">Ngày khám</label>
-      <input type="date" id="apptDate" value="${S.date}" min="${today}">
-    </div>
+    <div class="form-group"><label class="form-label">Ngày khám</label><input type="date" id="apptDate" value="${S.date}" min="${today}"><div class="field-hint">Phòng khám làm việc Thứ 2–Thứ 7; nghỉ Chủ nhật và ngày lễ.</div></div>
     ${S.date?`
-    <div class="section-label">Khung giờ khám — ${S.doctor.name}</div>
+    <div class="section-label">Khung giờ — ${esc(S.doctor.name)}</div>
     <div class="slot-legend">
-      <span><span class="legend-dot" style="background:var(--primary)"></span>Đã chọn</span>
-      <span><span class="legend-dot" style="background:var(--gray-200);border:1px solid var(--gray-300)"></span>Còn trống</span>
-      <span><span class="legend-dot" style="background:var(--red-light);border:1px solid #fca5a5"></span>Đã đặt</span>
+      <span><span class="legend-dot" style="background:var(--navy)"></span>Đã chọn</span>
+      <span><span class="legend-dot" style="background:#fff;border:1px solid var(--line)"></span>Còn trống</span>
+      <span><span class="legend-dot" style="background:var(--red-50);border:1px solid #e7b9b5"></span>Đã đặt</span>
+      <span><span class="legend-dot" style="background:var(--paper);border:1px solid var(--line)"></span>Phòng khám khóa</span>
     </div>
-    <div class="slot-grid">
-      ${S.doctor.slots.map(sl=>{
-        const taken=booked.includes(sl), sel=S.slot===sl;
-        return `<button class="slot-btn ${taken?'taken':''} ${sel?'selected':''}"
-          ${taken?'disabled':''} data-slot="${sl}">${sl}</button>`;
-      }).join('')}
-    </div>`:`
-    <p style="color:var(--gray-400);font-size:13px;margin-top:8px">Vui lòng chọn ngày để xem khung giờ.</p>
-    `}
-    <div class="btn-actions">
-      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
-      <button class="btn btn-primary" id="btnNext" ${!S.slot?'disabled':''}>Tiếp theo →</button>
-    </div>
+    <div class="slot-grid">${S.doctor.slots.map(sl=>{
+      const isBooked=S.bookedSlots.includes(sl), isBlocked=S.blockedSlots.includes(sl), sel=S.slot===sl;
+      const cls = isBooked?'taken':isBlocked?'blocked':sel?'selected':'';
+      const dis = isBooked||isBlocked?'disabled':'';
+      return `<button class="slot-btn ${cls}" ${dis} data-slot="${sl}">${sl}</button>`;
+    }).join('')}</div>`:`<p style="color:var(--faint);margin-top:8px">Vui lòng chọn ngày để xem khung giờ.</p>`}
+    <div class="btn-actions"><button class="btn btn-outline" id="btnBack">← Quay lại</button><button class="btn btn-primary" id="btnNext" ${!S.slot?'disabled':''}>Tiếp theo →</button></div>
   </div>`;
 }
 
-// ── STEP 5 ───────────────────────────────────────────────────
-function renderStep5() {
-  const booked = S.bookedSlots;
-  const conflict = booked.includes(S.slot);
-  const alts = conflict ? suggestAlternatives(S.doctor, booked, S.slot) : [];
+// ── STEP 5: XÁC NHẬN (phát hiện trùng + gợi ý) ───────────────
+function renderStep5(){
+  const taken = unavailable();
+  const conflict = taken.includes(S.slot);
+  const alts = conflict ? suggestAlternatives(S.doctor, taken, S.slot) : [];
+  const p = S.patient;
+  const addr = [p.addressDetail, p.ward, p.district, p.province].filter(Boolean).join(', ');
   return `
   <div class="card">
     <div class="card-title"><div class="icon">✅</div> Xác nhận thông tin lịch hẹn</div>
     ${conflict?`
-    <div class="alert alert-warning">
-      <span class="alert-icon">⚠️</span>
-      <div><strong>Phát hiện trùng lịch!</strong><br>Giờ <strong>${S.slot}</strong> đã được đặt. Chọn giờ thay thế:</div>
-    </div>
-    <div class="chip-group" style="margin-bottom:16px">
-      ${alts.map(sl=>`<button class="chip" data-altslot="${sl}">${sl}</button>`).join('')}
-    </div>`:''}
+    <div class="alert alert-warning"><span class="alert-icon">⚠️</span><div><strong>Phát hiện trùng lịch!</strong><br>Giờ <strong>${S.slot}</strong> không còn trống. Vui lòng chọn một khung giờ thay thế:</div></div>
+    <div class="chip-group" style="margin-bottom:16px">${alts.length?alts.map(sl=>`<button class="chip" data-altslot="${sl}">${sl}</button>`).join(''):'<span style="color:var(--faint)">Không còn khung giờ trống trong ngày, vui lòng quay lại đổi ngày.</span>'}</div>`:''}
     <table class="info-table">
-      <tr><td>Bệnh nhân</td><td>${S.patient.name}</td></tr>
-      <tr><td>Email</td><td>${S.patient.email}</td></tr>
-      <tr><td>Phòng khám</td><td>${S.clinic.name}</td></tr>
-      <tr><td>Địa chỉ</td><td>${S.clinic.address}</td></tr>
-      <tr><td>Chuyên khoa</td><td>${S.specialty}</td></tr>
-      <tr><td>Triệu chứng</td><td>${S.symptom}</td></tr>
-      <tr><td>Bác sĩ</td><td>${S.doctor.name}</td></tr>
-      <tr><td>Ngày khám</td><td>${S.date}</td></tr>
-      <tr><td>Giờ khám</td><td><strong>${S.slot}</strong>
-        <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:999px;
-          background:${conflict?'var(--amber-light)':'var(--green-light)'};
-          color:${conflict?'var(--amber)':'var(--green)'}">
-          ${conflict?'⚠ Chờ xác nhận':'✓ Còn trống'}
-        </span>
-      </td></tr>
+      <tr><td>Bệnh nhân</td><td>${esc(p.name)}</td></tr>
+      <tr><td>Điện thoại</td><td>${esc(p.phone)}</td></tr>
+      <tr><td>Email</td><td>${esc(p.email)}</td></tr>
+      <tr><td>Địa chỉ</td><td>${esc(addr)||'—'}</td></tr>
+      <tr><td>BHYT</td><td>${esc(p.insurance)}${p.insurance==='Có BHYT'&&p.insuranceNo?` (${esc(p.insuranceNo)})`:''}</td></tr>
+      <tr><td>Phòng khám</td><td>${esc(S.clinic.name)}</td></tr>
+      <tr><td>Chuyên khoa</td><td>${esc(S.specialty)}</td></tr>
+      <tr><td>Triệu chứng</td><td>${esc(S.symptom)}</td></tr>
+      <tr><td>Bác sĩ</td><td>${esc(S.doctor.name)}</td></tr>
+      <tr><td>Ngày khám</td><td>${esc(S.date)}</td></tr>
+      <tr><td>Giờ khám</td><td>${esc(S.slot)} <span class="badge ${conflict?'badge-cancel':'badge-ok'}">${conflict?'⚠ Trùng':'✓ Trống'}</span></td></tr>
     </table>
-    <div class="btn-actions">
-      <button class="btn btn-outline" id="btnBack">← Quay lại</button>
-      ${!conflict?`<button class="btn btn-success" id="btnConfirm">Đặt lịch ngay ✓</button>`:''}
-    </div>
+    <div class="btn-actions"><button class="btn btn-outline" id="btnBack">← Quay lại</button>${!conflict?`<button class="btn btn-success" id="btnConfirm">Đặt lịch ngay ✓</button>`:''}</div>
   </div>`;
 }
 
-// ── STEP 6 ───────────────────────────────────────────────────
-function renderStep6() {
-  const a = S.confirmedAppt;
-  const st = S.emailStatus;
-  let emailBox = '';
-  if (st==='sending') emailBox=`<div class="alert alert-info"><span class="alert-icon">📧</span><div>Đang gửi email xác nhận đến <strong>${a.patient_email}</strong>...</div></div>`;
-  else if (st==='ok') emailBox=`<div class="alert alert-success"><span class="alert-icon">📧</span><div>Email xác nhận đã gửi tới <strong>${a.patient_email}</strong>. Kiểm tra hộp thư (và mục Spam).</div></div>`;
-  else if (st==='fail') emailBox=`<div class="alert alert-warning"><span class="alert-icon">⚠️</span><div>Không gửi được email (${S.emailError||'lỗi không xác định'}). Thông tin lịch hẹn vẫn được lưu.
-    <div style="margin-top:8px"><button class="btn btn-outline" id="btnResendEmail" style="font-size:12px;padding:6px 12px">↻ Gửi lại email</button></div>
-  </div></div>`;
-
+// ── STEP 6: HOÀN TẤT ─────────────────────────────────────────
+function renderStep6(){
+  const a=S.confirmedAppt, st=S.emailStatus;
+  let box='';
+  if(st==='ok') box=`<div class="alert alert-success"><span class="alert-icon">📧</span><div>Email xác nhận đã được gửi tới <strong>${esc(a.patient_email)}</strong>. Vui lòng kiểm tra hộp thư (kể cả mục Spam).</div></div>`;
+  else if(st==='console') box=`<div class="alert alert-info"><span class="alert-icon">📧</span><div>Máy chủ chưa cấu hình SMTP nên email chỉ được ghi vào log (chế độ demo). Khi cấu hình SMTP, email sẽ gửi thật.</div></div>`;
+  else box=`<div class="alert alert-warning"><span class="alert-icon">⚠️</span><div>Lịch đã được lưu nhưng gửi email chưa thành công${S.emailError?` (${esc(S.emailError)})`:''}. Bạn vẫn có thể xem lại trong “Lịch của tôi”.</div></div>`;
   return `
   <div class="card">
     <div class="success-screen">
-      <div class="success-icon">✓</div>
-      <div class="success-title">Đặt lịch thành công!</div>
-      <div class="success-subtitle">Mã lịch hẹn: <strong>${a.id}</strong></div>
-      <div class="appt-summary">
+      <div class="seal">✓</div>
+      <div class="success-title">Đặt lịch thành công</div>
+      <div class="success-sub">Vui lòng lưu lại mã lịch hẹn để tra cứu khi cần</div>
+      <div class="slip">
+        <div class="slip-code">PHIẾU HẸN KHÁM · ${esc(a.id)}</div>
         <table class="info-table">
-          <tr><td>Bác sĩ</td><td>${a.doctor_name}</td></tr>
-          <tr><td>Phòng khám</td><td>${a.clinic_name}</td></tr>
-          <tr><td>Địa chỉ</td><td>${a.clinic_address}</td></tr>
-          <tr><td>Chuyên khoa</td><td>${a.specialty}</td></tr>
-          <tr><td>Ngày khám</td><td>${a.date}</td></tr>
-          <tr><td>Giờ khám</td><td><strong>${a.slot}</strong></td></tr>
+          <tr><td>Bác sĩ</td><td>${esc(a.doctor_name)}</td></tr>
+          <tr><td>Chuyên khoa</td><td>${esc(a.specialty)}</td></tr>
+          <tr><td>Phòng khám</td><td>${esc(a.clinic_name)}</td></tr>
+          <tr><td>Địa chỉ</td><td>${esc(a.clinic_address)}</td></tr>
+          <tr><td>Ngày khám</td><td>${esc(a.date)}</td></tr>
+          <tr><td>Giờ khám</td><td>${esc(a.slot)}</td></tr>
         </table>
       </div>
-      ${emailBox}
-      <div class="log-panel">
-        ${S.logs.map(l=>`<div class="log-line">${l}</div>`).join('')}
-      </div>
-      <div style="margin-top:20px;display:flex;gap:10px;justify-content:center">
-        <button class="btn btn-outline" id="btnViewAppts">📋 Xem lịch của tôi</button>
+      ${box}
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:18px">
+        <button class="btn btn-outline" id="btnViewAppts">📋 Lịch của tôi</button>
         <button class="btn btn-primary" id="btnReset">+ Đặt lịch mới</button>
       </div>
     </div>
   </div>`;
 }
 
-// ── BIND EVENTS ──────────────────────────────────────────────
-function bindAll() {
+// ── MY APPOINTMENTS ──────────────────────────────────────────
+async function renderMyAppts(el){
+  el.innerHTML = `<div class="loading"><div class="spinner"></div>Đang tải lịch hẹn...</div>`;
+  const appts = await api('GET','/api/appointments');
+  if(!appts.length){
+    el.innerHTML = `<div class="card" style="text-align:center;padding:40px">
+      <div style="font-size:42px;margin-bottom:10px">📋</div>
+      <div style="font-weight:700;font-size:18px;margin-bottom:6px">Chưa có lịch hẹn nào</div>
+      <div style="color:var(--faint);margin-bottom:20px">Hãy đặt lịch khám đầu tiên của bạn.</div>
+      <button class="btn btn-primary" id="btnGoBook">+ Đặt lịch ngay</button></div>`;
+    document.getElementById('btnGoBook').onclick=()=>{VIEW='booking';render();};
+    return;
+  }
+  el.innerHTML = `<div class="card">
+    <div class="card-title"><div class="icon">📋</div> Lịch hẹn của tôi (${appts.length})</div>
+    ${appts.map(a=>{
+      const cancelled = a.status==='cancelled';
+      return `<div class="appt-card">
+        <div>
+          <div style="font-weight:700;color:var(--navy);margin-bottom:3px">${esc(a.doctor_name)}</div>
+          <div style="font-size:14px;color:var(--muted)">🏥 ${esc(a.clinic_name||'')}</div>
+          <div style="font-size:14px;color:var(--muted)">🩺 ${esc(a.specialty)}${a.symptom?' · '+esc(a.symptom):''}</div>
+          <div style="font-size:13px;color:var(--faint);margin-top:4px">Mã: ${esc(a.id)}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-weight:700;color:var(--navy);font-size:17px">${esc(a.slot)}</div>
+          <div style="font-size:14px;color:var(--muted);margin-bottom:6px">${esc(a.date)}</div>
+          <span class="badge ${cancelled?'badge-cancel':'badge-ok'}">${cancelled?'Đã hủy':'✓ Đã xác nhận'}</span>
+          ${cancelled?'':`<div style="margin-top:8px"><button class="btn btn-danger btn-sm" data-cancel="${esc(a.id)}">Hủy lịch</button></div>`}
+        </div>
+      </div>`;
+    }).join('')}
+    <div style="margin-top:16px"><button class="btn btn-primary" id="btnGoBook">+ Đặt lịch mới</button></div>
+  </div>`;
+  document.getElementById('btnGoBook').onclick=()=>{VIEW='booking';S=freshState();render();};
+  el.querySelectorAll('[data-cancel]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!confirm('Bạn chắc chắn muốn hủy lịch hẹn này?'))return;
+    const r=await api('POST',`/api/appointments/${b.dataset.cancel}/cancel`);
+    if(!r.ok) alert(r.error||'Không hủy được');
+    renderMyAppts(el);
+  }));
+}
+
+// ── ADMIN PANEL ──────────────────────────────────────────────
+let ADMIN = { doctorId: null, date: '', blocked: [] };
+async function renderAdmin(el){
+  el.innerHTML = `<div class="loading"><div class="spinner"></div>Đang tải dữ liệu quản trị...</div>`;
+  const appts = await api('GET','/api/admin/appointments');
+  const today = new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Ho_Chi_Minh'});
+  if(!ADMIN.doctorId) ADMIN.doctorId = DOCTORS[0]?.id || null;
+  if(!ADMIN.date) ADMIN.date = today;
+  const doc = DOCTORS.find(d=>d.id===ADMIN.doctorId);
+  ADMIN.blocked = await api('GET',`/api/admin/blocked?doctorId=${ADMIN.doctorId}&date=${ADMIN.date}`);
+  const bookedToday = appts.filter(a=>+a.doctor_id===ADMIN.doctorId && a.date===ADMIN.date && a.status!=='cancelled').map(a=>a.slot);
+
+  el.innerHTML = `
+  <div class="card">
+    <div class="card-title"><div class="icon">⚙</div> Quản lý khung giờ (mở/khóa)</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Bác sĩ</label>
+        <select id="admDoc">${DOCTORS.map(d=>{const c=CLINICS.find(c=>c.id===d.clinicId);return `<option value="${d.id}" ${d.id===ADMIN.doctorId?'selected':''}>${esc(d.name)} — ${esc(d.specialty)} (${esc(c?.name||'')})</option>`;}).join('')}</select></div>
+      <div class="form-group"><label class="form-label">Ngày</label><input type="date" id="admDate" value="${ADMIN.date}"></div>
+    </div>
+    <div class="slot-legend">
+      <span><span class="legend-dot" style="background:#fff;border:1px solid var(--line)"></span>Mở (bấm để khóa)</span>
+      <span><span class="legend-dot" style="background:var(--paper);border:1px solid var(--line)"></span>Đã khóa (bấm để mở)</span>
+      <span><span class="legend-dot" style="background:var(--red-50);border:1px solid #e7b9b5"></span>Có người đặt</span>
+    </div>
+    <div class="slot-grid">${(doc?.slots||[]).map(sl=>{
+      const isBooked=bookedToday.includes(sl), isBlocked=ADMIN.blocked.includes(sl);
+      const cls=isBooked?'taken':isBlocked?'blocked':'';
+      return `<button class="slot-btn ${cls}" ${isBooked?'disabled title="Đã có người đặt"':''} data-adm-slot="${sl}">${sl}</button>`;
+    }).join('')}</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon">🗂</div> Tất cả lịch hẹn (${appts.length})</div>
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Mã</th><th>Bệnh nhân</th><th>SĐT</th><th>Bác sĩ</th><th>Ngày</th><th>Giờ</th><th>Trạng thái</th></tr></thead>
+      <tbody>${appts.map(a=>`<tr>
+        <td>${esc(a.id)}</td><td>${esc(a.patient_name)}</td><td>${esc(a.patient_phone||'')}</td>
+        <td>${esc(a.doctor_name)}</td><td>${esc(a.date)}</td><td>${esc(a.slot)}</td>
+        <td><span class="badge ${a.status==='cancelled'?'badge-cancel':'badge-ok'}">${a.status==='cancelled'?'Đã hủy':'Xác nhận'}</span></td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+
+  document.getElementById('admDoc').onchange=e=>{ADMIN.doctorId=+e.target.value;renderAdmin(el);};
+  document.getElementById('admDate').onchange=e=>{ADMIN.date=e.target.value;renderAdmin(el);};
+  el.querySelectorAll('[data-adm-slot]').forEach(b=>{
+    if(b.disabled)return;
+    b.addEventListener('click', async ()=>{
+      const sl=b.dataset.admSlot, isBlocked=ADMIN.blocked.includes(sl);
+      const url=isBlocked?'/api/admin/unblock':'/api/admin/block';
+      await api('POST',url,{doctorId:ADMIN.doctorId,date:ADMIN.date,slot:sl});
+      renderAdmin(el);
+    });
+  });
+}
+
+// ── BIND BOOKING EVENTS ──────────────────────────────────────
+function bindAll(){
   // Step 1
-  document.getElementById('btn1Next')?.addEventListener('click', () => {
-    const name = document.getElementById('pName').value.trim();
-    const email = document.getElementById('pEmail').value.trim();
-    const location = document.getElementById('pLocation').value.trim();
-    if (!name) { alert('Vui lòng nhập họ và tên!'); return; }
-    if (!email||!email.includes('@')) { alert('Vui lòng nhập email hợp lệ!'); return; }
-    S.patient = { name, email, location: location||'21 Đình Thôn, Cầu Giấy, Hà Nội' };
-    addLog(`Bệnh nhân: ${name} <${email}>`);
+  document.getElementById('btn1Next')?.addEventListener('click',()=>{
+    const g=id=>document.getElementById(id);
+    const name=g('pName').value.trim(), phone=g('pPhone').value.trim(), email=g('pEmail').value.trim();
+    const province=g('pProvince').value, district=g('pDistrict').value.trim(), ward=g('pWard').value.trim(), addr=g('pAddr').value.trim();
+    const insNo=g('pInsNo')?g('pInsNo').value.trim():'';
+    if(!name)return alert('Vui lòng nhập họ và tên.');
+    if(!isPhoneVN(phone))return alert('Số điện thoại phải gồm 10 số, bắt đầu bằng 0.');
+    if(!isEmail(email))return alert('Email không hợp lệ.');
+    if(!province||!district||!ward)return alert('Vui lòng chọn đầy đủ Tỉnh/Quận/Phường.');
+    S.patient={...S.patient,name,phone,email,province,district,ward,addressDetail:addr,insuranceNo:insNo};
+    addLog(`Bệnh nhân: ${name} <${email}> · ${phone}`);
     S.step=2; render();
   });
+  // BHYT radio + cascading selects (cần re-render)
+  document.querySelectorAll('[data-ins]').forEach(el=>el.addEventListener('click',()=>{ saveStep1Fields(); S.patient.insurance=el.dataset.ins; render(); }));
+  document.getElementById('pProvince')?.addEventListener('change',e=>{ saveStep1Fields(); S.patient.province=e.target.value; S.patient.district=''; S.patient.ward=''; render(); });
+  document.getElementById('pDistrict')?.addEventListener('change',e=>{ saveStep1Fields(); S.patient.district=e.target.value; S.patient.ward=''; render(); });
 
-  // Back
-  document.getElementById('btnBack')?.addEventListener('click', () => { S.step--; render(); });
+  // Nav
+  document.getElementById('btnBack')?.addEventListener('click',()=>{S.step--;render();});
+  document.getElementById('btnNext')?.addEventListener('click',()=>{S.step++;render();});
 
-  // Next
-  document.getElementById('btnNext')?.addEventListener('click', () => { S.step++; render(); });
+  // Clinic / spec / sym / doctor
+  document.querySelectorAll('[data-clinic]').forEach(el=>el.addEventListener('click',()=>{S.clinic=CLINICS.find(c=>c.id===+el.dataset.clinic);S.specialty=null;S.symptom=null;S.doctor=null;addLog(`Phòng khám: ${S.clinic.name}`);render();}));
+  document.querySelectorAll('[data-spec]').forEach(el=>el.addEventListener('click',()=>{S.specialty=el.dataset.spec;S.symptom=null;S.doctor=null;addLog(`Chuyên khoa: ${S.specialty}`);render();}));
+  document.querySelectorAll('[data-sym]').forEach(el=>el.addEventListener('click',()=>{S.symptom=el.dataset.sym;addLog(`Triệu chứng: ${S.symptom}`);render();}));
+  document.querySelectorAll('[data-doc]').forEach(el=>el.addEventListener('click',()=>{S.doctor=DOCTORS.find(d=>d.id===+el.dataset.doc);addLog(`Bác sĩ: ${S.doctor.name}`);render();}));
 
-  // Clinic
-  document.querySelectorAll('[data-clinic]').forEach(el=>
-    el.addEventListener('click', ()=>{
-      S.clinic = CLINICS.find(c=>c.id===+el.dataset.clinic);
-      S.specialty=null; S.symptom=null; S.doctor=null;
-      addLog(`Phòng khám: ${S.clinic.name}`);
-      render();
-    })
-  );
-
-  // Specialty
-  document.querySelectorAll('[data-spec]').forEach(el=>
-    el.addEventListener('click', ()=>{
-      S.specialty=el.dataset.spec; S.symptom=null; S.doctor=null;
-      addLog(`Chuyên khoa: ${S.specialty}`);
-      render();
-    })
-  );
-
-  // Symptom
-  document.querySelectorAll('[data-sym]').forEach(el=>
-    el.addEventListener('click', ()=>{
-      S.symptom=el.dataset.sym;
-      addLog(`Triệu chứng: ${S.symptom}`);
-      render();
-    })
-  );
-
-  // Doctor
-  document.querySelectorAll('[data-doc]').forEach(el=>
-    el.addEventListener('click', ()=>{
-      S.doctor=DOCTORS.find(d=>d.id===+el.dataset.doc);
-      addLog(`Bác sĩ: ${S.doctor.name}`);
-      render();
-    })
-  );
-
-  // Date — fetch booked slots from server
+  // Date → lấy slot đã đặt + bị khóa
   document.getElementById('apptDate')?.addEventListener('change', async e=>{
-    S.date=e.target.value; S.slot=null;
-    addLog(`Ngày khám: ${S.date}`);
-    const slots = await api('GET',`/api/appointments/booked?doctorId=${S.doctor.id}&date=${S.date}`);
-    S.bookedSlots = Array.isArray(slots) ? slots : [];
-    render();
+    S.date=e.target.value; S.slot=null; addLog(`Ngày khám: ${S.date}`);
+    const r=await api('GET',`/api/appointments/booked?doctorId=${S.doctor.id}&date=${S.date}`);
+    S.bookedSlots=r.booked||[]; S.blockedSlots=r.blocked||[]; render();
   });
+  document.querySelectorAll('[data-slot]').forEach(el=>el.addEventListener('click',()=>{if(el.disabled)return;S.slot=el.dataset.slot;addLog(`Giờ chọn: ${S.slot}`);render();}));
+  document.querySelectorAll('[data-altslot]').forEach(el=>el.addEventListener('click',()=>{S.slot=el.dataset.altslot;addLog(`Giờ thay thế: ${S.slot}`);render();}));
 
-  // Slot
-  document.querySelectorAll('[data-slot]').forEach(el=>
-    el.addEventListener('click', ()=>{
-      S.slot=el.dataset.slot;
-      addLog(`Giờ chọn: ${S.slot}`);
-      render();
-    })
-  );
-
-  // Alt slot
-  document.querySelectorAll('[data-altslot]').forEach(el=>
-    el.addEventListener('click', ()=>{
-      S.slot=el.dataset.altslot;
-      addLog(`Giờ thay thế: ${S.slot}`);
-      render();
-    })
-  );
-
-  // Confirm — POST to server
+  // Confirm
   document.getElementById('btnConfirm')?.addEventListener('click', async ()=>{
-    addLog('Đang đặt lịch...');
-    const r = await api('POST','/api/appointments',{
-      clinicId: S.clinic.id, clinicName: S.clinic.name, clinicAddress: S.clinic.address,
-      doctorId: S.doctor.id, doctorName: S.doctor.name,
-      specialty: S.specialty, symptom: S.symptom,
-      date: S.date, slot: S.slot,
+    addLog('Đang gửi yêu cầu đặt lịch...');
+    const p=S.patient;
+    const r=await api('POST','/api/appointments',{
+      clinicId:S.clinic.id,clinicName:S.clinic.name,clinicAddress:S.clinic.address,
+      doctorId:S.doctor.id,doctorName:S.doctor.name,specialty:S.specialty,symptom:S.symptom,
+      date:S.date,slot:S.slot,patientPhone:p.phone,insurance:p.insurance==='Có BHYT'&&p.insuranceNo?`Có BHYT - ${p.insuranceNo}`:p.insurance,
+      province:p.province,district:p.district,ward:p.ward,addressDetail:p.addressDetail,
     });
-    if (!r.ok) {
-      addLog(`❌ Lỗi: ${r.error}`);
-      // Refresh booked slots và re-render step 4
-      const slots = await api('GET',`/api/appointments/booked?doctorId=${S.doctor.id}&date=${S.date}`);
-      S.bookedSlots = Array.isArray(slots)?slots:[];
-      render(); return;
+    if(!r.ok){
+      addLog(`❌ ${r.error}`);
+      // làm mới slot và quay lại bước 4 để chọn lại
+      const b=await api('GET',`/api/appointments/booked?doctorId=${S.doctor.id}&date=${S.date}`);
+      S.bookedSlots=b.booked||[]; S.blockedSlots=b.blocked||[]; S.step=4; alert(r.error); render(); return;
     }
-    S.confirmedAppt = r.appointment;
+    S.confirmedAppt=r.appointment;
+    S.emailStatus = r.email===true ? 'ok' : (r.emailError? 'fail':'console');
+    if(r.email===false && !r.emailError) S.emailStatus='console';
     addLog(`✅ Đặt lịch thành công! Mã: ${r.appointment.id}`);
-    S.step=6; S.emailStatus='sending'; S.emailError='';
-    render();
-    // Gửi email
-    sendConfirmationEmail(r.appointment)
-      .then(()=>{ S.emailStatus='ok'; addLog('📧 Email đã gửi thành công'); render(); })
-      .catch(err=>{ S.emailStatus='fail'; S.emailError=err?.text||err?.message||'lỗi'; addLog(`❌ Gửi email thất bại: ${S.emailError}`); render(); });
+    S.step=6; render();
   });
 
-  // Resend email
-  document.getElementById('btnResendEmail')?.addEventListener('click', ()=>{
-    S.emailStatus='sending'; S.emailError=''; render();
-    sendConfirmationEmail(S.confirmedAppt)
-      .then(()=>{ S.emailStatus='ok'; render(); })
-      .catch(err=>{ S.emailStatus='fail'; S.emailError=err?.text||err?.message||'lỗi'; render(); });
-  });
+  document.getElementById('btnReset')?.addEventListener('click',()=>{S=freshState();render();});
+  document.getElementById('btnViewAppts')?.addEventListener('click',()=>{VIEW='myappts';render();});
+}
 
-  // Reset
-  document.getElementById('btnReset')?.addEventListener('click', ()=>{ S=freshState(); render(); });
-  document.getElementById('btnViewAppts')?.addEventListener('click', ()=>{ VIEW='myappts'; render(); });
+// Lưu giá trị các input đang nhập ở step 1 trước khi re-render (tránh mất dữ liệu)
+function saveStep1Fields(){
+  const g=id=>document.getElementById(id);
+  if(g('pName')) S.patient.name=g('pName').value;
+  if(g('pPhone')) S.patient.phone=g('pPhone').value;
+  if(g('pEmail')) S.patient.email=g('pEmail').value;
+  if(g('pAddr')) S.patient.addressDetail=g('pAddr').value;
+  if(g('pInsNo')) S.patient.insuranceNo=g('pInsNo').value;
 }
 
 // ── INIT ─────────────────────────────────────────────────────
-async function init() {
-  document.getElementById('appContent').innerHTML = `<div class="loading"><div class="spinner"></div>Đang tải...</div>`;
-  // Load session + data song song
-  const [meRes, clinicsRes, doctorsRes] = await Promise.all([
-    api('GET','/api/me'),
-    api('GET','/api/clinics'),
-    api('GET','/api/doctors'),
-  ]);
-  SESSION = meRes.user || null;
-  CLINICS = clinicsRes || [];
-  DOCTORS = doctorsRes || [];
-  if (SESSION) S = freshState();
+async function init(){
+  document.getElementById('appContent').innerHTML=`<div class="loading"><div class="spinner"></div>Đang tải...</div>`;
+  const [me,clinics,doctors]=await Promise.all([api('GET','/api/me'),api('GET','/api/clinics'),api('GET','/api/doctors')]);
+  SESSION=me.user||null; CLINICS=clinics||[]; DOCTORS=doctors||[];
+  if(SESSION) S=freshState();
   render();
 }
-
 init();
 </script>
 </body>
