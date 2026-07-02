@@ -1,5 +1,5 @@
 id,name,address,distance,rating,specialties
-1,Phòng khám Đa khoa An Bình,12 Hoàng Diệu - Hà Nội,1.2,4.8,"Tim mạch,Nội tiêu hóa,Nhi khoa,Da liễu"
-2,Phòng khám Medcare Hà Nội,45 Nguyễn Trãi - Hà Nội,2.5,4.6,"Thần kinh,Tim mạch,Cơ xương khớp,Da liễu"
-3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,3.8,4.9,"Tim mạch,Nội tiêu hóa,Nhi khoa,Thần kinh,Cơ xương khớp"
-4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,0.8,4.5,"Nhi khoa,Da liễu,Nội tiêu hóa"
+1,Phòng khám Đa khoa An Bình,12 Hoàng Diệu - Hà Nội,1.2,4.8,"Tim mạch,Nội tiêu hóa,Nhi khoa,Da liễu,Hô hấp,Sản - Phụ khoa,Tai - Mũi - Họng,Ung bướu,Cơ xương khớp,Thần kinh"
+2,Phòng khám Medcare Hà Nội,45 Nguyễn Trãi - Hà Nội,2.5,4.6,"Thần kinh,Tim mạch,Cơ xương khớp,Da liễu,Nội tiết - Đái tháo đường,Tiết niệu - Thận học,Mắt,Răng - Hàm - Mặt,Tâm thần - Tâm lý,Cấp cứu - Nội tổng quát,Nhi khoa,Hô hấp,Sản - Phụ khoa"
+3,Phòng khám Quốc tế SkyMed,88 Lê Duẩn - Hà Nội,3.8,4.9,"Tim mạch,Nội tiêu hóa,Nhi khoa,Thần kinh,Cơ xương khớp,Hô hấp,Nội tiết - Đái tháo đường,Tiết niệu - Thận học,Tai - Mũi - Họng,Tâm thần - Tâm lý,Ung bướu,Da liễu,Mắt"
+4,Phòng khám Gia đình FamilyDoc,22 Kim Mã - Hà Nội,0.8,4.5,"Nhi khoa,Da liễu,Nội tiêu hóa,Sản - Phụ khoa,Mắt,Răng - Hàm - Mặt,Cấp cứu - Nội tổng quát,Thần kinh"

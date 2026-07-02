@@ -6,7 +6,7 @@ const path = require('path');
 const cron = require('node-cron');
 
 const { readCSV, writeCSV, appendCSV, withLock } = require('./lib/csv');
-const { sendMail, confirmationEmail } = require('./lib/mailer');
+const { sendMail, confirmationEmail, cancellationEmail } = require('./lib/mailer');
 const { validateBooking } = require('./lib/schedule');
 const { runReminders, APPT_COLUMNS } = require('./lib/reminders');
 
@@ -188,8 +188,8 @@ app.post('/api/appointments', requireAuth, async (req, res) => {
     if (!result.ok) return res.json(result);
 
     // Gửi email xác nhận từ phía SERVER (không lộ secret ra client)
-    const { subject, html } = confirmationEmail(result.appointment);
-    const mail = await sendMail({ to: result.appointment.patient_email, subject, html });
+    const emailData = confirmationEmail(result.appointment);
+    const mail = await sendMail({ to: result.appointment.patient_email, ...emailData });
     res.json({ ok: true, appointment: result.appointment, email: mail.ok, emailError: mail.error || null });
   } catch (err) {
     console.error(err);
@@ -207,9 +207,17 @@ app.post('/api/appointments/:id/cancel', requireAuth, async (req, res) => {
       return { ok: false, error: 'Bạn không có quyền hủy lịch này.' };
     appt.status = 'cancelled';
     writeCSV('appointments.csv', rows, APPT_COLUMNS);
-    return { ok: true };
+    const cancelledBy = appt.patient_email === req.session.user.email ? 'patient' : 'admin';
+    return { ok: true, appointment: { ...appt }, cancelledBy };
   });
-  res.json(out);
+
+  if (out.ok && out.appointment) {
+    const emailData = cancellationEmail(out.appointment, out.cancelledBy);
+    const mail = await sendMail({ to: out.appointment.patient_email, ...emailData });
+    if (!mail.ok) console.warn('⚠️ Không gửi được email hủy lịch:', mail.error);
+  }
+
+  res.json({ ok: out.ok, error: out.error });
 });
 
 // ── ADMIN ROUTES ────────────────────────────────────────────

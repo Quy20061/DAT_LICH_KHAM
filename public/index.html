@@ -336,12 +336,22 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;'
 // ── DATA ─────────────────────────────────────────────────────
 let CLINICS = [], DOCTORS = [];
 const SPECIALTY_SYMPTOMS = {
-  "Tim mạch":      ["Đau ngực","Hồi hộp - tim đập nhanh","Khó thở khi gắng sức","Phù chân"],
-  "Nội tiêu hóa":  ["Đau bụng - buồn nôn","Ợ chua - trào ngược","Tiêu chảy/táo bón","Chướng bụng"],
-  "Nhi khoa":      ["Trẻ sốt cao","Ho kéo dài","Chậm phát triển","Dị ứng thức ăn"],
-  "Da liễu":       ["Nổi mẩn - ngứa","Mụn trứng cá","Rụng tóc","Vết thương lâu lành"],
-  "Thần kinh":     ["Đau đầu mãn tính","Chóng mặt","Tê bì tay chân","Mất ngủ"],
-  "Cơ xương khớp": ["Đau lưng - cổ","Đau khớp gối","Cứng khớp buổi sáng","Thoát vị đĩa đệm"],
+  "Tim mạch":                  ["Đau ngực","Hồi hộp - tim đập nhanh","Khó thở khi gắng sức","Phù chân"],
+  "Nội tiêu hóa":              ["Đau bụng - buồn nôn","Ợ chua - trào ngược","Tiêu chảy/táo bón","Chướng bụng"],
+  "Nhi khoa":                  ["Trẻ sốt cao","Ho kéo dài","Chậm phát triển","Dị ứng thức ăn"],
+  "Da liễu":                   ["Nổi mẩn - ngứa","Mụn trứng cá","Rụng tóc","Vết thương lâu lành"],
+  "Thần kinh":                 ["Đau đầu mãn tính","Chóng mặt","Tê bì tay chân","Mất ngủ"],
+  "Cơ xương khớp":             ["Đau lưng - cổ","Đau khớp gối","Cứng khớp buổi sáng","Thoát vị đĩa đệm"],
+  "Hô hấp":                   ["Ho kéo dài","Khó thở","Đau tức ngực","Viêm phổi - phế quản"],
+  "Nội tiết - Đái tháo đường": ["Tiểu nhiều - khát nước","Mệt mỏi kéo dài","Tăng cân bất thường","Rối loạn tuyến giáp"],
+  "Tiết niệu - Thận học":      ["Tiểu buốt - tiểu rắt","Đau vùng thắt lưng","Sỏi thận","Phù nề - nước tiểu bất thường"],
+  "Sản - Phụ khoa":            ["Kinh nguyệt không đều","Đau bụng kinh","Khám thai định kỳ","U nang - u xơ"],
+  "Mắt":                       ["Mờ mắt - giảm thị lực","Đau mắt - đỏ mắt","Khô mắt - chảy nước mắt","Kiểm tra cận thị"],
+  "Tai - Mũi - Họng":          ["Đau họng - khàn giọng","Nghẹt mũi - chảy nước mũi","Ù tai - nghe kém","Viêm amidan"],
+  "Răng - Hàm - Mặt":         ["Đau răng","Sâu răng - viêm nướu","Lệch khớp cắn","Nhổ răng - cấy implant"],
+  "Tâm thần - Tâm lý":         ["Mất ngủ kéo dài","Lo âu - stress","Trầm cảm","Rối loạn hành vi"],
+  "Ung bướu":                  ["Sụt cân không rõ nguyên nhân","Khối u bất thường","Tầm soát ung thư","Mệt mỏi - thiếu máu kéo dài"],
+  "Cấp cứu - Nội tổng quát":   ["Sốt cao","Đau bụng cấp","Khám sức khỏe tổng quát","Mệt mỏi - chưa rõ nguyên nhân"],
 };
 const STEP_LABELS = ["Thông tin","Phòng khám","Chuyên khoa","Thời gian","Xác nhận","Hoàn tất"];
 
